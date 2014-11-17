@@ -5,6 +5,8 @@
  */
 $webimroot = "/atendimento";
 
+$conf = file_get_contents("../../application/configs/configuracao.ini");
+
 /*
  *  Internal encoding
  */

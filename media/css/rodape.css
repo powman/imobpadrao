@@ -1,0 +1,56 @@
+@charset "iso-8859-1";
+@import url(http://fonts.googleapis.com/css?family=Roboto:500,700,900);
+/*Rodape*/
+#backgroudRodape{
+	position:relative;
+	}
+.tamanhoRodape{
+	position:relative;
+	margin:auto;
+	width:990px;
+	height:70px;
+	}
+.blocoRedeSocialRodape{
+	position:relative;
+	float:left;
+	width:176px;
+	height:100%;
+	padding-left:5px;
+	}
+.blocoEnderecoRodape{
+	position:relative;
+	float:left;
+	width:609px;
+	height:100%;
+	}
+.blocoAtendimentoRodape{
+	position:relative;
+	float:left;
+	width:200px;
+	height:100%;
+	}
+.iconesRodape{
+	position:relative;
+	float:left;
+	font-size:25px;
+	text-decoration:none;
+	margin:29px 7px 0 7px;
+	}
+.txtEnderecoRodape{
+	font-family: 'Roboto', sans-serif;
+	font-weight:500;
+	font-size:16px;
+	color:#fff;
+	text-align:center;
+	margin:25px 0 0 0;
+	}	
+.netsuprema{
+	position:relative;
+	float:left;
+	margin:15px 0 0 50px;
+	width:124px;
+	height:42px;
+	}
+	
+
+	

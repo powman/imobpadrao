@@ -1,0 +1,60 @@
+@charset "iso-8859-1";
+@import url(http://fonts.googleapis.com/css?family=Roboto:500,700,900);
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+/*TOPO*/
+#backgroudTopo {
+	position:relative;
+	min-height:189px;
+}
+.faixaTopo{
+	position:relative;
+	height:28px;	
+	}
+
+.tamanhoTopo {
+	position:relative;
+	margin:auto;
+	width:990px;
+}
+.TradicaoImoveis-logomarca {
+	position:relative;
+	float:left;
+	margin:19px 0 0 2px;
+	text-align:center;
+	width:231px;
+}
+.espacoMenu {
+	position:relative;
+	float:right;
+	height:27px;
+	margin:31px 17px 0 2px;
+}
+.icon_menu{
+	position:relative;
+	width:990px;
+	height:38px;
+	margin:15px 0 0 0;
+	}
+.iconesTopo{
+	position:relative;
+	float:left;
+	height:33px;
+	margin:3px 10px 0 15px;
+	font-size:25px;	
+	text-decoration:none;
+    font-family: 'Roboto', sans-serif;
+	font-weight:700;
+	}
+.iconeFonoTopo{
+	position:relative;
+	float:right;
+    font-family: 'Roboto', sans-serif;
+	font-weight:900;
+	margin:-55px 24px 0 0;
+	font-size:25px;
+	}

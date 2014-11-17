@@ -1,0 +1,49 @@
+@CHARSET "ISO-8859-1";
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+.conteudoMeio {
+	position: relative;
+	width: 990px;
+	margin: auto;
+	margin-top:5px;	
+	background-color: #F5F5F5;
+	background-repeat: repeat;
+	overflow: auto;
+	min-height:150px;
+}
+
+.titulo_parceiros {
+	font-family: 'Roboto', sans-serif;
+	font-size:22px;
+	font-weight:600;
+	color:#990000;
+	padding-top:15px;
+	padding-left:20px;
+}
+
+.linha_parceiros {
+	width: 100%;
+	height: 9px;
+	float:left;
+	background-image: url("../../_img/imovel/linha.png");
+	background-repeat: repeat-x;
+}
+
+.item_parceiros {
+	position:relative;
+	float:left;
+	background-image:url(../../_img/parceiros/backgroud_parceiros.fw.png);
+	background-repeat:no-repeat;
+	width:215px;
+	height:163px;
+	margin:20px 10px 0 20px;
+}
+.logo_parceiros {
+	float: left;
+	height: 210px;
+	width: 100%;
+	background-color: #f0f0f0;
+}
+.posicao_parceiros{
+	float:left; margin:2px 0 0 2px;
+	
+	}

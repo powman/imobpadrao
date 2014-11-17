@@ -1,0 +1,65 @@
+<style>
+div.pagination{
+font-family: Arial,Helvetica,sans-serif;
+font-size: 12px;
+margin-top:10px;
+text-align: center;
+}
+
+div.pagination .currentPage {
+padding: 5px;
+background-color: #069;
+color: white;
+font-weight: bold;
+}
+
+div.pagination .numberPage {
+padding: 5px;
+border: 1px solid #069;
+color: #069;
+font-weight: bold;
+}
+
+div.pagination .numberPage:hover {
+background-color: yellow;
+}
+</style>
+
+<div class="pagination">
+    <!-- Link para a primeira p�gina -->
+    <?php if (isset($this->previous)): ?>
+        <a title="Primeira Página" href="<?php echo $this->url(array('pagina' => $this->first)); ?>">&laquo; Primeira</a>|
+    <?php else: ?>
+        <a class="current" title="Primeira Página" href="<?php echo $this->url(array('pagina' => $this->first)); ?>">&laquo; Primeira</a>|
+    <?php endif; ?>
+
+    <!-- Link para a p�gina anterior -->
+    <?php if (isset($this->previous)): ?>
+        <a title="Página anterior" href="<?php echo $this->url(array('pagina' => $this->previous)); ?>">&laquo; Anterior</a>|
+    <?php else: ?>
+        <a  class="current" title="Página anterior" href="<?php echo $this->url(array('pagina' => $this->previous)); ?>">&laquo; Anterior</a>|
+    <?php endif; ?>
+
+    <!-- Links numerados -->
+    <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+            <a title="<?php echo $page; ?>" href="<?php echo $this->url(array('pagina' => $page)); ?>"><?php echo $page; ?></a>|
+        <?php else: ?>
+            <a class="current" title="<?php echo $page; ?>" href="<?php echo $this->url(array('pagina' => $page)); ?>"><?php echo $page; ?></a>|
+        <?php endif; ?>
+    <?php endforeach; ?>
+
+    <!-- Link para a Pr�xima p�gina -->
+    <?php if (isset($this->next)): ?>
+        <a title="Próxima Página" href="<?php echo $this->url(array('pagina' => $this->next)); ?>">Próxima &raquo;</a>|
+    <?php else: ?>
+        <a class="current" title="Próxima Página" href="<?php echo $this->url(array('pagina' => $this->next)); ?>">Próxima &raquo;</a>|
+    <?php endif; ?>
+
+    <!-- �ltima p�gina -->
+    <?php if (isset($this->next)): ?>
+        <a title="Última Página" href="<?php echo $this->url(array('pagina' => $this->last)); ?>">Última&raquo;</a>
+    <?php else: ?>
+        <a class="current" title="Última Página" href="<?php echo $this->url(array('pagina' => $this->last)); ?>">Última&raquo;</a>
+    <?php endif; ?>
+</div>

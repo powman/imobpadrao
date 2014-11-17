@@ -1,0 +1,47 @@
+<h2>Listagem de imóveis</h2>
+<div id="permissao-dialog" title="Permiss�es do modulo"><!-- Janela de controle de permiss�es --></div>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" id="table_liquid">
+<caption>Listagem de imóveis cadastrados no sistema.</caption>
+<?php echo $this->form; ?>
+	<tr>
+		<th width="80px">Código</th>
+		<th width="300px">Descrição</th>
+		<th width="50px">Ativo</th>
+		<th>A��es</th>
+	</tr>
+<?php 
+$class ='alt';
+
+if($this->aImovel):
+foreach ( $this->aImovel as $imovel ) :
+	if($class=='alt')
+				$class='';
+			else
+				$class='alt';
+	?>
+  <tr>
+		<th class="spec<?php echo $class;?>"><?php
+		
+	echo $imovel->getCodigo_sistema();
+	?></th>
+		<td class="<?php echo $class;?>"><?php
+	echo substr($imovel->getDescricao(), 0, 50);
+	?></td>
+		<td class="<?php echo $class;?>"><?php
+	echo ($imovel->getDestaque())?'Sim':'N�o';
+	?></td>
+		<td align="center" class="<?php echo $class;?>">
+		
+		<?php 
+			//echo $this->ActionButton('video','index','admin','V�deos',array('imovel'=> $imovel->getIdimovel())).' '; 
+			 
+			//echo $this->ActionButton('imovel','excluir','admin','Excluir',array('id'=> $imovel['idModulo'])).' ';
+		?>
+		</td>
+	</tr>
+<?php
+endforeach;
+endif;
+?>
+</table>
+<?php echo $this->paginationControl($this->aImovel, 'Sliding', 'pagination.phtml'); ?>

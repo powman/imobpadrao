@@ -1,0 +1,122 @@
+<!-- Busca -->
+<div id="backgroudBusca" style="background:<?php echo Zend_Registry::get('backgroudBusca'); ?>;">
+  <div class="tamanhoBusca">
+  		<!-- Txt Busca de imovel -->
+        <div class="blocoTxBusca" style="float: left;">
+        	<p class="txTituloBusca" style="color:<?php echo Zend_Registry::get('colorTxTituloBusca'); ?>;">
+            	Busca de im&oacute;veis <i class="fa fa-search"></i>
+			</p>         
+        </div>
+        <div style="float: right; padding-top: 20px; margin-left: 50px;">
+        	<div style="float: left;">
+        		
+        		<form id="form_buscaCodigo" name="form_buscaCodigo" method="post" action="<?php echo $this->url(array('controller'=>'imovel', 'action'=>'busca'), 'default', true); ?>" class="espaco_form_busca">
+        			<i class="fa fa-search" style="color:#fff;"></i>
+        			<input type="text" name="buscaCodigo" id="buscaCodigo"/>
+        		</form>
+        	</div>
+        	<div style="float: left;">
+        		<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" class="botFormBusca" onclick="$('#form_buscaCodigo').submit();" style="background:<?php echo Zend_Registry::get('backgroudBotBusca'); ?>;color:<?php echo Zend_Registry::get('colorBotBusca'); ?>; width: 170px; margin-top:0px;">
+					Buscar por código
+	        	</a>
+        	</div>
+        	<div style="clear: both;"></div>
+        </div>
+        <div style="clear: both;"></div>
+        <style>
+        	.ui-multiselect span{
+        		
+        		font-size:12px !important;
+        	}
+        </style>
+        <script>
+					function ADCategoria(value){
+						if(value==1){	
+							$("#categoriaHome").multiselect("disable");
+        		            $("#categoriaHome").multiselect('refresh');						
+						}else if(value==2){
+							$("#categoriaHome").multiselect("enable");
+        		            $("#categoriaHome").multiselect('refresh');							
+						}
+					}
+		</script>
+  		<!-- Fim Txt Busca de imovel -->
+        
+    		<form id="form_busca" name="form_busca" method="post" action="<?php echo $this->url(array('controller'=>'imovel', 'action'=>'busca'), 'default', true); ?>" class="espaco_form_busca">
+	        		
+	        		<div style="float: left; margin-right: 15px;">
+		        		<select style="width:125px;" multiple name="finalidade" class="multselectValores txtCampoFormBusca" onchange="ADCategoria(this.value)">
+							<option value="1">Aluguel</option>
+							<option value="2" selected="selected">Venda</option>
+						</select>
+					</div>
+	        		
+					<div style="float: left; margin-right: 15px;">
+		        		<select name="hidden_venda[]" id="categoriaHome" style="width:125px;" multiple class="multselectCategoria txtCampoFormBusca">
+							<option value="LANÇAMENTO">Lançamento</option>
+							<option value="RURAL">Rural</option>
+							<option value="TERCEIROS">Terceiros / Revenda</option>
+						</select>
+					</div>
+	        		<div style="float: left; margin-right: 15px;">
+		        		<select name="hidden_tipo[]" style="width:125px;" multiple class="multselectTipo txtCampoFormBusca">
+							<?php
+							foreach ($this->aTipoImovel as $tipoImovel):
+							    $idtipo_imovel = $tipoImovel->getIdtipo_imovel();
+							    ?>
+							    <option value='<?= $idtipo_imovel ?>'><?= $tipoImovel->getNmtipo_imovel() ?></option>	
+							    <?php
+							endforeach;
+							?>
+						</select>
+					</div>
+	        		<div style="float: left; margin-right: 15px;">
+		        		<select name="preco" style="width: 190px;" class="form_personalizado multselectPreco">
+		        			<option value="">Preço</option>
+							<optgroup label="Aluguel">
+							<option value="1">R$0,00 a R$600,00</option>
+							<option value="2">R$600,00 a R$1200,00</option>
+							<option value="3">R$1.200,00 a R$2.400,00</option>
+							<option value="4">R$2.400,00 a R$4.000,00</option>
+							<option value="5">acima de R$4.000,00</option>
+							</optgroup>
+							<optgroup label="Venda">
+							<option value="6">R$0,00 a R$100mil</option>
+							<option value="7">R$100mil a R$200mil</option>
+							<option value="8">R$200mil a R$300mil</option>
+							<option value="9">R$300mil a R$400mil</option>
+							<option value="10">R$400mil a R$500mil</option>
+							<option value="11">acima de R$500mil</option>
+							</optgroup>
+						</select>
+					</div>
+					<div style="float: left; margin-right: 15px;">
+		        		<select name="hidden_cidade[]" style="width:125px;" multiple class="multselectCidade txtCampoFormBusca">
+							<?php
+							foreach ($this->aCidade as $oCidade):
+							    $idCidade = $oCidade->getIdcidade();
+							    ?>
+							    <option value='<?= $idCidade ?>'><?= $oCidade->getNmcidade() ?></option>	
+							    <?php
+							endforeach;
+							?>
+						</select>
+					</div>
+					<div style="float: left; margin-right: 15px;">
+		        		<select style="width:125px;" name="hidden_bairro[]" multiple disabled class="multselectBairro txtCampoFormBusca">
+							
+						</select>
+					</div>
+					
+					<div style="float: left;">
+						<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" class="botFormBusca" onclick="$('#form_busca').submit();" style="background:<?php echo Zend_Registry::get('backgroudBotBusca'); ?>;color:<?php echo Zend_Registry::get('colorBotBusca'); ?>;">
+							Buscar
+			        	</a>
+					</div>
+					
+					<div style="clear: both;"></div>  
+	        	<input type="hidden" name="acaoCidade" id="acaoCidade" value="<?php echo $this->baseUrl();?>/index/setor/id/" /> 	
+        	</form>
+  </div>
+</div>
+<!-- Fim Busca -->

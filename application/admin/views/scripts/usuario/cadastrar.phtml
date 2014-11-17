@@ -1,0 +1,8 @@
+<h2><?php echo $this->headerText?>
+<input type="button" id="voltar" onclick="location.href='<?php echo $this->url ( array ('controller' => 'usuario', 'module'=>'admin' ), 'default', true )?>'"	class="button" value="Voltar"></input>
+</h2>
+<?php if($this->warningMessage):?><div class="message error closeable"><p><?php echo $this->warningMessage;?></p></div><?php endif;?>
+<?php
+echo $this->form;
+?>
+

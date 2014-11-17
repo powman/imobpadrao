@@ -1,0 +1,97 @@
+<div id="backgroudConteudo">
+	<div class="tamanhoConteudo">
+		<div class="conteudoMeio">
+		<div>
+    	<script src="<?php echo $this->baseUrl(); ?>/media/js/keydragzoom.js" type="text/javascript"></script>
+    	<style>
+		.legenda{
+			text-align: right;
+		}
+		#map_canvas{
+			width: 98%;
+			height: 480px;
+		}
+		</style>
+		<fieldset  id="beginpanel" class="textoPadraoServico" style="text-align: left;">
+		<div class="titulo_atendimento">PESQUISA DE IMÓVEIS</div>
+            <div class="linha_atendimento"></div>
+		<table width="100%">
+		<tr>
+		<td colspan="2">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+		    <td width="209" height="30" align="right" valign="middle"><span class="preField">Finalidade :</span></td>
+		    <td width="205" height="30" align="left" valign="middle">&nbsp;&nbsp;<select class="" name="FINALIDADE" id="FINALIDADE" >
+		      <option value="0" selected>(Todos)</option>
+		      <option value="2">Venda</option>
+		      <option value="1">Aluguel</option>
+		      </select></td>
+		    <td width="99" height="30" align="right" valign="middle"><span class="preInline">Tipo :</span></td>
+		    <td width="649" height="30" align="left" valign="middle">&nbsp;&nbsp;<select class="" name="TIPO" id="TIPO" >
+		    	<option value="0" selected>(Todos)</option>
+		      <?php
+				foreach($this->aTipoImovel as $tipoImovel):
+				$idtipo_imovel = $tipoImovel->getIdtipo_imovel();
+				?>
+					<option value="<?=$idtipo_imovel?>"><?=$tipoImovel->getNmtipo_imovel()?></option>
+				<?php 
+				endforeach;
+				?>	
+		      </select></td>
+		    </tr>
+		  <tr>
+		    <td width="209" height="30" align="right" valign="middle"><label for="NMCIDADE_NMBAIRRO" class="preField">Cidade / Setor :</label></td>
+		    <td height="30" colspan="3" align="left" valign="middle">&nbsp;&nbsp;<select class="" name="NMCIDADE_NMBAIRRO" id="NMCIDADE_NMBAIRRO" >
+		      <option value="0" selected>(Todos)</option>
+		      <?php        
+		        foreach($this->aBairro as $aBairro):
+			        $idBairro = $aBairro['idsetor'];
+		        ?>
+	        			<option value="<?=$idBairro?>">
+	        			<?php echo $aBairro['nmbairro'] . ' - ' . $aBairro['nmcidade']; ?>
+	        			</option>
+				        <?php
+		        	endforeach;
+		        ?>
+		      </select></td>
+		    </tr>
+		  <tr>
+		    <td width="209" height="30" align="right" valign="middle"><span class="preField">Quartos :</span></td>
+		    <td height="30" align="left" valign="middle">&nbsp;&nbsp;<input class="enum numeric" type="text" name="QUARTOS" id="QUARTOS" size="2" maxlength="2" value="" lang="0" /></td>
+		    <td height="30" align="right" valign="middle"><label for="SUITES2" class="preInline">Suites :&nbsp;</label></td>
+		    <td height="30" align="left" valign="middle">&nbsp;&nbsp;<input class="enum numeric" type="text" name="SUITES" id="SUITES" size="2" maxlength="2" value="" lang="0" /></td>
+		    </tr>
+		  <tr>
+		    <td width="209" height="30" align="right" valign="middle"><span class="preField">Valor (Aluguel ou Venda) :</span></td>
+		    <td height="30" colspan="3" align="left" valign="middle">&nbsp;&nbsp;<input class="enum numeric" type="text" name="VALOR_INICIAL" id="VALOR_INICIAL" size="10" maxlength="10" value="" lang="0" />
+		      <label for="VALOR_FINAL2" class="preInline">at&eacute; :&nbsp;</label>
+		      &nbsp;&nbsp;<input class="enum numeric" type="text" name="VALOR_FINAL" id="VALOR_FINAL2" size="10" maxlength="10" value="" lang="0" /></td>
+		    </tr>
+		  <tr>
+		    <td width="209" height="30" align="right" valign="middle">
+		    	<div id="pesquisar" class="bot_pesquisaAvancada"></div>
+		    </td>
+		    <td height="30" colspan="3" align="left" valign="middle"></td>
+		    </tr>
+		  </table>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<div class="legenda">
+		<img src="http://labs.google.com/ridefinder/images/mm_20_gray.png" />Todos os im&oacute;veis
+		<img src="http://labs.google.com/ridefinder/images/mm_20_yellow.png" />Im&oacute;veis selecionados
+		</div>
+		</td>
+		</tr>
+		</table>
+		<center>
+			<div id="map_canvas"></div>
+		</center>
+		Segura "Shift" para selecionar e aproximar uma &aacute;rea do mapa.
+		</fieldset>
+    </div>           		
+           		
+        </div>
+    </div>
+</div>            	

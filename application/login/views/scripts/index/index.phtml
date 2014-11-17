@@ -1,0 +1,25 @@
+<div id="login_window">
+	<h2 class="loginheading">Acesso Restrito</h2>
+	<div class="icon_login ie6fix"></div>
+    <form id="login_window-form" action="<?php echo $this->url(array('controller'=>'index','action'=>'login','module'=>'login'));?>" method="post">
+            <p>
+            	<label for="name">Usu&aacute;rio</label>
+            	<input class="input-medium" type="text" value="" name="usuario" id="usuario"/>
+        	</p>
+
+        	<p>
+            	<label for="password">Senha</label>
+            	<input class="input-medium" type="password" value="" name="senha" id="senha"/>
+        	</p>
+        	
+        	<div class="forgot_pw"><a href="#">Esqueceu a senha ?</a></div>
+        	<p class="clearboth">
+            	<input class="button" name="submit" type="submit" value="Entrar"/>
+        	</p>
+    </form>
+</div>
+<?php if($this->warningMessage):?>
+<div class="login_message message error">
+	<p><?php echo $this->warningMessage[0];?></p>
+</div>
+<?php endif;?>

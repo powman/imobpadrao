@@ -1,0 +1,48 @@
+<h2>Listagem de configurações</h2>
+<div align="right">
+	<?php echo $this->ActionButton('config','incluir','admin','Cadastrar');?>
+</div>
+<br />
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+	id="table_liquid">
+	<caption>Listagem de configurações cadastradas.</caption>
+	<tr>
+		<th width="450px">Identificador</th>
+		<th width="240px">Tamanhos</th>
+		<th>A��es</th>
+	</tr>
+<?php
+$class = 'alt';
+if ($this->entries) :
+	foreach ($this->entries->getCurrentItems() as $entry) :
+		if ($class == 'alt')
+			$class = '';
+		else
+			$class = 'alt';
+		?>
+  <tr>
+		<th class="spec<?php
+		echo $class;
+		?>"><?php
+		echo $entry['identificador'];
+		?></th>
+		<td class="<?php
+		echo $class;
+		?>"><?php
+		echo $entry['tamanhos'];
+		?></td>
+		<td align="center" class="<?php
+		echo $class;
+		?>">
+		<?php
+		echo $this->ActionButton('config','alterar','admin','Alterar',array('id'=> $entry['idFotoConf'])).' '; 
+		echo $this->ActionButton('config','excluir','admin','Excluir',array('id'=> $entry['idFotoConf']));
+		?> 
+		</td>
+	</tr>
+<?php
+	endforeach;
+	endif;
+?>
+</table>
+<?php echo $this->paginationControl($this->entries, 'Sliding', 'pagination.phtml'); ?>

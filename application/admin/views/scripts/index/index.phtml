@@ -1,0 +1,23 @@
+<div class="jquery_tab">
+
+<div class="content_block">
+<h2>Sistema gerenciador de conteúdo</h2>
+<?php
+$menuModel = Application_Model_ModuloMapper::instanciar();
+foreach ($this->entries as $permissao) :
+ 	$modulo = new Application_Model_Modulo();
+  	$menuModel->find($permissao->getIdModulo(), $modulo);
+  	if($modulo->getAtivo()):
+	?>
+
+<a class="dashboard_button button<?=$modulo->getIcon_class()?>"
+	href="<?php	echo $this->url(array('controller' => $modulo->getController(), 'module' => 'admin'), 'default', true);
+	?>">
+<span class="dashboard_button_heading"><?=$modulo->getNmmodulo()?></span>
+<span><?=$modulo->getDescricao()?></span> </a><!--end dashboard_button-->
+<?php endif;
+endforeach;
+?>
+<h2></h2>
+</div>
+<!--end content_block--></div>

@@ -1,0 +1,148 @@
+﻿<?=$this->doctype()?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>Administra&ccedil;&atilde;o Net Suprema</title>
+
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/admin/css/style_all.css') ?>
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/admin/css/style1.css') ?>
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/admin/css/jquery-ui.css') ?>
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/admin/css/jquery.wysiwyg.css') ?>
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/css/shadowbox.css') ?>
+
+<?= $this->cssHelper() ?>   
+<? $this->headScript()->appendFile($this->baseUrl().'/media/admin/js/jquery.js') ?>
+<? $this->headScript()->appendFile($this->baseUrl().'/media/admin/js/jquery-ui.js') ?>
+<? $this->headScript()->appendFile($this->baseUrl().'/media/admin/js/jquery.wysiwyg.js') ?>
+<? $this->headScript()->appendFile($this->baseUrl().'/media/admin/js/custom.js') ?>
+<? $this->headScript()->appendFile($this->baseUrl().'/media/js/shadowbox.js') ?>
+<? $this->headScript()->appendFile($this->baseUrl().'/media/js/shadowbox.js') ?>
+<?= $this->javascriptHelper() ?>
+<?= $this->headScript() ?> 
+<?php 
+//if ($this->dojo()->isEnabled()){
+	//alterar caminho da pasta externals
+    $this->dojo()->setLocalPath('http://192.168.7.206/sites/externals/dojo/dojo/dojo.js');
+    $this->dojo()->addStyleSheetModule('dijit.themes.claro');
+    echo $this->dojo();
+  // }
+$this->dojo()->javascriptCaptureStart() ;
+$this->dojo()->javascriptCaptureEnd();
+?>
+</head>
+<body class="claro">
+<div id="top">        
+        <div id="top">
+        <div id="head">
+            	<h1 class="logo">
+                	<a href="<?php echo $this->url(array('controller'=>'index','module'=>'admin','module'=>'admin'),'default',true) ?>"></a>
+                </h1>
+                <div class="head_memberinfo">
+
+                    <span class="memberinfo_span">
+                   		 Bem vindo 
+	                    <?php 
+	                    	if(Zend_Auth::getInstance()->getIdentity()){
+	                    	$auth = Zend_Auth::getInstance()->getIdentity();	                    	 
+	                    ?>                   		
+                		<a href="<?php echo $this->url(array('controller'=>'usuario','module'=>'admin','action'=>'cadastrar','id'=>$auth->id,'module'=>'admin'),'default',true) ?>">
+	                    <?php 
+	                    		echo $auth->nome;
+	                    	}else{	                    			
+	                    		$sRed = '<script>document.location = \'';
+	                    		$sRed .= $this->url(array('controller'=>'index','module'=>'login'),'default',true);
+	                    		$sRed .= '\'</script>';
+	                    		echo $sRed;
+	                    	}
+	                    ?>
+	                   	</a>
+                    </span>
+
+                    
+                    <span class='memberinfo_span'>
+                    	<a href="<?php echo $this->url(array('controller'=>'index','module'=>'admin'),'default',true) ?>">
+	                    		Configura&ccedil;&otilde;es
+	                   	</a>
+                    </span>
+                    
+                    <span>
+                    	<a href="<?php echo $this->url(array('controller'=>'index','action'=>'logout','module'=>'login'),'default',true) ?>">
+	                    		Sair
+	                   	</a>
+                    </span>
+
+                    
+          
+              
+	                  
+	     
+             
+                </div><!--end head_memberinfo-->
+            
+            </div><!--end head-->
+            	
+            	<div id="bg_wrapper">
+            			<div id="main">
+						<div id="content"><!-- Div Meio -->		
+						<?php echo $this->Messenger(); ?>
+            			<?php echo $this->layout()->content ?>
+            			<!-- Fim Div Meio --></div>
+						<!--end content--></div>
+						<!--end main-->
+            			
+            			
+              			<div id="sidebar">
+                            <ul class="nav">
+                            	<li>
+                            		<a class="headitem item1" 
+		                            	href="#" onClick="location.href='<?php echo $this->url(array('controller'=>'index','module'=>'admin'),'default',true) ?>'">
+		                            	In&iacute;cio
+                            		</a>                                    
+                                </li>
+                                <?php
+                                  $menuPermissao=  Application_Model_PermissaoMapper::instanciar();
+                                  $menuModel =  Application_Model_ModuloMapper::instanciar();
+                                  if ($auth->idPerfil && $auth->idPerfil != 1) {
+                                  	$resultSet = Application_Model_PermissaoMapper::instanciar()->getDbTable()->select()->from('permissao','distinct(idModulo)')->where('idPerfil = ' . $auth->idPerfil)->query(PDO::FETCH_ASSOC);
+									$aMenu = array();
+                                  	while($row = $resultSet->fetch(PDO::FETCH_ASSOC)){
+                                  		$entry = new Application_Model_Permissao();
+										$entry->setOptions($row);
+										$aMenu[] = $entry;
+                                  	}
+								  } else {
+              					  	$aMenu = $menuModel->fetchAll();
+								   }
+								  foreach ($aMenu as $permissao) :
+								  	$modulo = new Application_Model_Modulo();
+								  	$menuModel->find($permissao->getIdModulo(), $modulo);
+								  	if($modulo->getAtivo()):
+									?>
+								<li>
+                                	<a class="headitem item<?=$modulo->getIcon_class()?>" href="#" onClick="location.href='<?php
+									echo $this->url(array('controller' => $modulo->getController(), 'module' => 'admin'), 'default', true);
+									?>'"><?=$modulo->getNmmodulo()?></a>
+                                </li>   
+								<?php endif;
+								endforeach;
+								?>
+                            </ul><!--end subnav-->
+                            
+                          <div class="flexy_datepicker"></div>
+
+                          
+                            
+                        </div><!--end sidebar-->
+                        
+                     </div><!--end bg_wrapper-->
+                     
+                <div id="footer">
+                
+                </div><!--end footer-->
+                
+        </div><!-- end top -->
+</body>
+</html>
+
+
+

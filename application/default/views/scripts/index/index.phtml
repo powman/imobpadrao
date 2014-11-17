@@ -1,0 +1,267 @@
+<script type="text/javascript">  
+        	<?php
+        	$sessao = new Zend_Session_Namespace();
+			if(!$sessao->acesso){
+        	$sessao->acesso = true;
+        					
+        	?>	     
+	        $(function() {
+		            function launch() {
+		                 $('#sign_up').lightbox_me({centered: true, onLoad: function() { $('#sign_up').find('input:first').focus()}});					 
+		            }
+		            $("#sign_up").lightbox_me({centered: true, onLoad: function() {
+						$("#sign_up").find("input:first").focus();
+					}});
+						
+		            
+		            $('table tr:nth-child(even)').addClass('stripe');
+	        });
+	        <?php	 
+        	}
+        	?>            
+    </script>
+<!-- Banner -->
+<div id="tamanhoBanner" style="background:<?php echo Zend_Registry::get('backgroudBanner'); ?>;">
+	<div class="margin_auto">
+    	<div class="positionBanner">
+    	<!-- Banner -->
+		    <div id="wrapper">
+		        <div class="slider-wrapper theme-default" style="position: relative;">
+		            <div id="iview">
+		            <?php foreach($this->aBanners as $banner): ?>
+		            <div data-iview:image="<?php echo $this->baseUrl(); ?>/media/imagens/banners/<?php echo $banner->getImagem(); ?>">
+		            	<a style="text-indent: -999999px; display: block;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="http://<?php echo $banner->getLink(); ?>" target="_blank">
+		                	<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>
+		                </a>
+		            </div>
+		            <?php endforeach; ?>    
+		            </div>            
+		        </div>		
+		    </div>    	
+    	<!-- Fim banner -->
+    	</div>
+  	</div>
+</div>
+<!-- Fim Banner -->
+
+<?php echo $this->render('buscaTopo.phtml');?>
+
+<div style="clear:both;"></div>
+
+<!-- Conteudo -->
+<div id="backgroudConteudo" style="background:<?php echo Zend_Registry::get('backgroudMeio'); ?>;">
+	<div class="tamanhoConteudo"> 
+		<div id="abas">			
+            <style>
+            .menu_abas {
+			background:<?php echo Zend_Registry::get('backgroudAbaImobA'); ?>;
+			color:<?php echo Zend_Registry::get('colorAbaA'); ?>;
+			}
+			.menu_abas:hover {
+			background:<?php echo Zend_Registry::get('backgroudAbaImobAHover'); ?>;
+			color:<?php echo Zend_Registry::get('colorAbaAHover'); ?>;
+			}
+            </style>
+            <?php 
+            $i = 0;
+            foreach($this->aCategorias as $categorias):
+            	if(!$this->tipo){
+	            	$bg = $i >= 1 ? "background:".Zend_Registry::get('backgroudAbaImobAHover').";" : "background:".Zend_Registry::get('backgroudAbaImobA').";";
+	            	$color = $i >= 1 ? "color:".Zend_Registry::get('colorAbaAHover').";" : "color:".Zend_Registry::get('colorAbaA').";";
+            	}else{
+					$bg = $this->tipo != ($i+1) ? "background:".Zend_Registry::get('backgroudAbaImobAHover').";" : "background:".Zend_Registry::get('backgroudAbaImobA').";";
+					$color = $this->tipo != ($i+1) ? "color:".Zend_Registry::get('colorAbaAHover').";" : "color:".Zend_Registry::get('colorAbaA').";";
+				}
+            ?>
+				<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" rel="<?php echo ($i+1);?>" class="menu_abas btMudarAbas" style="<?php echo $bg; ?> <?php echo $color;?>"><?php echo $categorias->getNome();?></a>  
+			<?php 
+			$i++;
+			endforeach;
+			?>
+			<div style="clear: both;"></div>          
+		</div>
+
+		
+  		<!-- Abas Im�veis Compra e Aluguel -->
+  		<div class="shadow" style="background: #fff; padding-bottom: 20px;">
+  		<?php 
+  		$i = 0;
+  		foreach($this->aCategorias as $categorias):
+  		if(!$this->tipo){
+			$displayCss = $i == 0 ? "" : "display:none;";
+		}else{
+			$displayCss = $this->tipo == ($i+1) ? "" : "display:none;";
+		}
+  		?>
+  			<!-- Aba Comprar -->
+		    <div id="tabhome<?php echo ($i+1);?>" class="abas_comprar_alugar someAba" style="background:<?php echo Zend_Registry::get('backgroundBlocoImob'); ?>; <?php echo $displayCss;?>">
+	    		<?php
+		    		$this->imovel_venda = Application_Model_ImovelMapper::instanciar();
+		    		$select2 = "";
+		    		$select = "";
+		    		$condicao = false;
+					if($categorias->getCategoria()){
+						/* select para os tipos */
+			    		$aTipos = array();
+			    		$select2 = "";
+			    		$condicao2 = "";
+			    		$aTipos = explode(",",$categorias->getCategoria());
+			    		$aux2 = count($aTipos);
+			    		for($k=0;$k<$aux2;$k++){
+							$select2 .= ($k <= 0 ? "" : " OR ")." categoria = '".$aTipos[$k]."'";
+	
+						}
+						$select2 = "(".$select2.")";
+						$condicao = " AND ";
+					}
+					
+					if($categorias->getIdTipoImovel()){
+						$select = ' venda_aluguel = '.$categorias->getIdTipoImovel()." ".$condicao;
+						$condicao = " AND ";
+					}
+
+		    		$aItens[$i] = $this->imovel_venda->fetchAll($select.$select2.$condicao.' destaque = 1');
+		    		
+		    		$paginator[$i] = Zend_Paginator::factory($aItens[$i]);
+		    		/**
+		    		 * Seta a quantidade de registros por p�gina
+		    		*/
+		    		$paginator[$i]->setItemCountPerPage(12);
+		    		/**
+		    		 * numero de paginas que ser�o exibidas
+		    		*/
+		    		$paginator[$i]->setPageRange(5);
+		    		/**
+		    		 * Seta a p�gina atual
+		    		*/
+		    		$paginator[$i]->setCurrentPageNumber($this->pagina);
+		    		/**
+		    		 * Passa o paginator para a view*/
+		    			
+		    		$this->imovel_venda = $paginator[$i];
+
+					/* Imoveis na p�gina inicial */
+					foreach($this->imovel_venda as $imoveis):
+					
+				    $tipoModelVenda = Application_Model_TipoMapper::instanciar();
+					$aTipo = $tipoModelVenda->fetchAll('idtipo_imovel = '.$imoveis->getIdtipo_imovel());	
+				?>	
+		    	<!-- Bloco -->
+				<div class="bloco_imoveis">
+                	<!-- Imagem do Imovel -->
+                    <?php 
+                  		/* Se n�o existir imagem cadastrada exibe a imagem padr�o */
+                  		$sImage = end(Application_Model_ImovelMapper::findImage($imoveis->getIdimovel(), true));
+
+                  		if (!file_exists(APPLICATION_PATH.'/../media/upload/imagens/'.$sImage) || !$sImage){
+	            			$sImage='sem_imagem_detalhe.png';
+	            		}     
+	            		      		
+                  	?>
+                    <div class="imagem_imoveis" align="center" style="background:<?php echo Zend_Registry::get('backgroundImgImob'); ?>;">
+						<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" class="zooom aImgImo" style="background:url('<?php echo $this->baseUrl();?>/media/upload/imagens/<?=$sImage?>') no-repeat center center;" href="<?php echo $this->url(array('controller'=>'imovel','action'=>'destaque', 'id'=>$imoveis->getIdimovel(), 'imovel' => urlName($imoveis->getDescricao())), 'default', true); ?>" >
+							<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>
+                  		</a>
+                    </div>
+                	<!-- Fim Imagem do Imovel -->
+                    <!-- Titulo do Imovel -->
+                    <a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" class="titulo_imoveis" href="<?php echo $this->url(array('controller'=>'imovel','action'=>'destaque', 'id'=>$imoveis->getIdimovel(), 'imovel' => urlName($imoveis->getDescricao())), 'default', true); ?>" style="color:<?php echo Zend_Registry::get('colorTituloImob'); ?>;">
+                    	<?php 
+                		/* Tipo de im�vel */
+                		foreach($aTipo as $tipo){
+							echo substr($tipo->getNmtipo_imovel(), 0, 18);
+						} 
+					?> 
+                    </a>
+                    <!-- Fim Titulo do Imovel -->
+                    <!-- Descri��o do Imovel -->
+                    <a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" class="descricao_imoveis" href="<?php echo $this->url(array('controller'=>'imovel','action'=>'destaque', 'id'=>$imoveis->getIdimovel(), 'imovel' => urlName($imoveis->getDescricao())), 'default', true); ?>" style="color:<?php echo Zend_Registry::get('colorDescricaoImob'); ?>;">
+                    	<?php 
+								/* Descri��o do im�vel */
+								echo substr($imoveis->getDescricao(), 0, 100) . ' ...';
+								
+								
+							?> 
+							
+                    </a>
+                    <!-- Fim Descri��o do Imovel -->
+                    
+                    <!-- Descri��o do Imovel -->
+                    <p class="preco_imovel" style="color:<?php echo Zend_Registry::get('colorPrecoImob'); ?>;">
+                    	Pre&ccedil;o: 
+						<?php
+
+            		/* Valor do imóvel */
+            		switch($imoveis->getVenda_aluguel()){
+            			case 1 : 
+            				if(($imoveis->getValor_aluguel() * 1) > 0 && $imoveis->getPublicacao_exibir_valor()){
+            					echo 'R$ '.KM_formatNunber($imoveis->getValor_aluguel());
+            				}else{
+            					echo '<b>Sob Consulta</b>';
+            				}
+            				break;
+            			case 2 :
+            				if(($imoveis->getValor_venda() * 1) > 0 && $imoveis->getPublicacao_exibir_valor()){
+            					echo 'R$ '.KM_formatNunber($imoveis->getValor_venda());
+            				}else{
+            					echo '<b>Sob Consulta</b>';
+            				}	
+            				break;
+            		}
+								?>
+                    </p>
+                    <!-- Fim Descri��o do Imovel -->
+                
+                
+                
+                </div>
+		    	<!-- Fim Bloco -->        
+				<?php endforeach; ?> 
+                <!-- P�gina��o -->
+				<div class="tamanho_paginacao">
+		        	<div class="img_paginacao">
+		        		<?php $_SESSION['tipo'] = ($i+1) ?>
+		            	<?php echo $this->paginationControl($this->imovel_venda, 'Sliding', 'pagination.phtml', array("tipo", $this->tipo)); ?>
+		            </div>
+		        </div>
+                <!-- Fim P�gina��o -->
+		    </div>
+			<?php 
+			$i++;
+			endforeach;
+			
+			?>
+			<div style="clear: both;"></div>
+	    </div>
+  	<!-- Fim Abas Im�veis Compra e Aluguel -->
+  </div>
+  
+	<?php echo $this->render('parceiros.phtml');?>
+</div>
+<!-- Fim Conteudo -->
+
+<style>
+	            .maiormultiselect{
+	            	width: 20px;
+	            }
+	            </style>
+
+
+	
+    	<script type="text/javascript">
+    	$(document).ready(function() {
+    		$('.btMudarAbas').click(function(){
+				var botao = $(this);
+				var pagina = $(this).attr("rel");
+				$('.someAba').stop().fadeOut(100,function(){
+					$('#tabhome'+pagina).stop().fadeIn(100);
+					$(".menu_abas").css("color","<?php echo Zend_Registry::get('colorAbaAHover'); ?>");
+					$(".menu_abas").css("background","<?php echo Zend_Registry::get('backgroudAbaImobAHover'); ?>");
+					$(botao).css("color","<?php echo Zend_Registry::get('colorAbaA'); ?>");
+					$(botao).css("background","<?php echo Zend_Registry::get('backgroudAbaImobA'); ?>");
+				});
+				
+				
+    		});
+    	});
+    	</script>

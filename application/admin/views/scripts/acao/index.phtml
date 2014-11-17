@@ -1,0 +1,60 @@
+<h1>Listagem de ações</h1>
+<?php
+if ($this->sucessMessage) :
+	?><div class="message success closeable">
+<p><?php
+	echo $this->sucessMessage;
+	?></p>
+</div>
+<?php endif;
+?>
+<?php
+
+if ($this->warningMessage) :
+	?><div class="message error closeable">
+<p><?php
+	echo $this->warningMessage;
+	?></p>
+</div>
+<?php endif;
+?>
+<div align="right"><input type="button"
+	onclick="location.href='<?php
+	echo $this->url ( array ('controller' => 'acao', 'action' => 'cadastrar', 'module'=>'admin' ), 'default', true )?>'"
+	class="button" value="Nova ação"></input></div>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<th width="480px">Ação</th>
+		<!-- <th width="280px">Status</th>  -->
+		<th>Ações</th>
+	</tr>
+<?php
+$class ='alt';
+if($this->entries):
+foreach ( $this->entries as $entry ) :
+	if($class=='alt')
+				$class='';
+			else
+				$class='alt';
+
+	?>
+  <tr>
+		<td><?php
+	echo $entry->getNmaction ();
+	?></td>
+		
+		
+		<td align="center"><input type="button"
+			onclick="location.href='<?php 
+	echo $this->url ( array ('controller' => 'acao', 'action' => 'cadastrar', 'module'=>'admin', 'id' => $entry->getIdModulo_Action () ), 'default', true )?>'"
+			class="button" value="Alterar"></input> <input type="button"
+			onclick="location.href='<?php
+	echo $this->url ( array ('controller' => 'acao', 'module'=>'admin', 'id' => $entry->getIdModulo_Action () ), 'default', true )?>'"
+			class="button" value="Excluir"></input></td>
+	</tr>
+<?php
+endforeach;
+endif;
+?>
+</table>
+<?php echo $this->paginationControl($this->entries, 'Sliding', 'pagination.phtml'); ?>

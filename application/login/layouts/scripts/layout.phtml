@@ -1,0 +1,25 @@
+<?=$this->doctype()?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="Content-Type">
+<title>Admin - Net Suprema</title>
+
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/admin/css/style_all.css') ?>
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/admin/css/style1.css') ?>
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/admin/css/jquery-ui.css') ?>
+<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/admin/css/jquery.wysiwyg.css') ?>
+<?= $this->cssHelper() ?>   
+<? $this->headScript()->appendFile($this->baseUrl().'/media/admin/js/jquery.js') ?>
+<? $this->headScript()->appendFile($this->baseUrl().'/media/admin/js/jquery-ui.js') ?>
+<? $this->headScript()->appendFile($this->baseUrl().'/media/admin/js/jquery.wysiwyg.js') ?>
+<? $this->headScript()->appendFile($this->baseUrl().'/media/admin/js/custom.js') ?>
+<?= $this->javascriptHelper(); ?>
+<?= $this->headScript() ?> 
+</head>
+    <body class="nobackground">
+    	<center>
+               <?php echo $this->layout()->content ?>
+         </center>
+    </body>
+    
+</html>

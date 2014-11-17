@@ -1,0 +1,16 @@
+<h1><?php echo $this->headerText?></h1>
+<?php if($this->warningMessage):?><div class="message error closeable"><p><?php echo $this->warningMessage;?></p></div><?php endif;?>
+<div align="right"><input type="button"
+	onclick="location.href='<?php
+	echo $this->url ( array ('controller' => 'banner', 'module'=>'admin' ), 'default', true )?>'"
+	class="button" value="Voltar"></input></div>
+<div style="float:left;width: 400px;">
+<?php
+echo $this->form;
+?>
+</div>
+<div style="float:left;">
+	<center>
+		<img src="<?php echo $this->baseUrl()?>/media/imagens/banners/<?php echo $this->imagem;?>" style="max-width: 400px;" border="0" />
+	</center>
+</div>

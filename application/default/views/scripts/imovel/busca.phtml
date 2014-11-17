@@ -1,0 +1,302 @@
+﻿<!-- Busca -->
+<div class="mini_faixa"></div>
+<?php echo $this->render('buscaTopo.phtml');?>
+
+<!-- Conteudo -->
+<div id="backgroudConteudo">
+  <div class="tamanhoConteudo"> 
+	<!-- 990 -->
+	<div class="conteudoMeio">	
+	<?php
+	
+	if(count($this->buscaImovel)>0){				
+	
+	foreach ($this->buscaImovel as $aRsImovel):		
+	?>	
+    
+	<div class="divisor_imoveis"></div>
+	<div class="quadro_buscas" style="background:<?php echo Zend_Registry::get('backgroundBlocoImob'); ?>;">
+        	<?php 
+	            	//Buscar imagem do imóvel
+					$tipoImovel = Application_Model_TipoMapper::instanciar();
+					$aTipoImovel = $tipoImovel->fetchAll('idtipo_imovel = '.$aRsImovel->getIdtipo_imovel());				
+	            	
+	            	$sImagemImovel = end(Application_Model_ImovelMapper::findImage($aRsImovel->getIdimovel(), true));
+	            	
+	            	if (!file_exists(APPLICATION_PATH.'/../media/upload/imagens/'.$sImagemImovel) || !$sImagemImovel){
+	            			$sImagemImovel='sem_imagem_detalhe.png';
+	            	}
+	        ?>
+		<div class="coluna01">
+			<!-- Imagem do Imovel -->
+				<div class="imagemPrincipalDetalhes" align="center" style="background:<?php echo Zend_Registry::get('backgroundImgImob'); ?>;">
+					<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" class="zooom aImgImoDetalhe" style="background:url('<?php echo $this->baseUrl();?>/media/upload/imagens/<?=$sImagemImovel?>') no-repeat center center;" href="<?php echo $this->url(array('controller'=>'imovel','action'=>'destaque', 'id'=>$aRsImovel->getIdimovel(), 'imovel' => urlName($aRsImovel->getDescricao())), 'default', true); ?>" >
+						<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>
+					</a>
+				</div>
+			<!-- Fim Imagem do Imovel -->
+            <div style="clear:both;"></div>
+			<!-- Detalhes do Imóvel -->
+            <a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="<?php echo $this->url(array('controller'=>'imovel','action'=>'destaque', 'id'=>$aRsImovel->getIdimovel(), 'imovel' => urlName($aRsImovel->getDescricao())), 'default', true); ?>" class="menuPgBuscaimovel" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+            	<i class="fa fa-plus-circle"></i> Detalhes do im&oacute;vel
+            </a><br />
+			<!-- Fim Detalhes do Imóvel -->
+            <div style="clear:both;"></div>            
+		</div>   
+        <div class="coluna02">
+        	<div class="tituloImovel" style="color:<?php echo Zend_Registry::get('colorTituloPgDetalhes'); ?>;">
+            <?php 
+            	/**
+				 * Imprime o nome do tipo do imóvel em questão	
+            	 */
+                $tipoModel = Application_Model_TipoMapper::instanciar();
+                $tipo = new Application_Model_Tipo();
+                $tipoModel->find($aRsImovel->getIdtipo_imovel(), $tipo);
+                echo $tipo->getNmtipo_imovel();
+            ?>
+            </div>
+            <div class="linha_imovel"></div>
+            <div class="colunaTexto01" >
+            	
+            	<?php
+            	/**
+            	 * Verifica se existem quartos no imóvel
+            	 * se existir imprime a quantidade
+            	 */ 
+            	if(($aRsImovel->getQuarto() * 1) > 0): ?>
+	            	<div class="texto_imoveldestacado" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	            	<?=$aRsImovel->getQuarto()?>
+	                </div>
+	            	<div class="texto_imovelsimples width200_textosimples" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	                 quarto(s)
+	                </div>
+                <?php endif; ?>
+                
+                <?php 
+                /**
+            	 * Verifica se existem suítes no imóvel
+            	 * se existir imprime a quantidade
+                 */
+                if(($aRsImovel->getSuite() * 1) > 0): ?>
+	            	<div class="texto_imoveldestacado" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	            	<?=$aRsImovel->getSuite()?>
+	                </div>
+	            	<div class="texto_imovelsimples width200_textosimples" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	                 su&iacute;te(s)
+	                </div>
+                <?php endif;?>
+                
+                <?php 
+                /**
+            	 * Verifica se existem garagens no imóvel
+            	 * se existir imprime a quantidade
+                 */                
+                if(($aRsImovel->getArea_terreno() * 1) > 0): ?>
+	            	<div class="texto_imoveldestacado" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	            	<?=$aRsImovel->getArea_terreno()?> m&ordf;
+	                </div>
+	            	<div class="texto_imovelsimples width175_textosimples" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>; width:120px;">
+	                 de &aacute;rea total
+	                </div>
+                <?php endif; ?>
+                
+            	<div class="texto_imoveldestacado" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>; width:50px;">
+            	Tipo:
+                </div>
+            	<div class="texto_imovelsimples"  style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>; min-width:160px;">
+	            <?php 
+	            	/**
+					 * Imprime o nome do tipo do imóvel
+	            	 */
+	                $tipoModel = Application_Model_TipoMapper::instanciar();
+	                $tipo = new Application_Model_Tipo();
+	                $tipoModel->find($aRsImovel->getIdtipo_imovel(), $tipo);
+	                echo $tipo->getNmtipo_imovel();
+	            ?>
+                </div>
+                
+            </div>
+            <div class="colunaTexto02" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+				<?php 
+                /**
+            	 * Verifica se existem salas no imóvel
+            	 * se existir imprime a quantidade
+                 */				
+				if(($aRsImovel->getSala_total() * 1) > 0): ?>
+	            	<div class="texto_imoveldestacado" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	            	<?=$aRsImovel->getSala_total()?>
+	                </div>
+	            	<div class="texto_imovelsimples width200_textosimples" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	                 sala(s)
+	                </div>
+				<?php endif;?>
+
+				<?php if($aRsImovel->getGaragem_total()): ?>
+	            	<div class="texto_imoveldestacado" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	            	<?=$aRsImovel->getGaragem_total()?>
+	                </div>
+	            	<div class="texto_imovelsimples width200_textosimples" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	                 garagem(s)
+	                </div>
+                <?php endif;?>
+                
+                <?php if(($aRsImovel->getArea_util() * 1) > 0): ?>
+	            	<div class="texto_imoveldestacado" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	            	<?=(int)$aRsImovel->getArea_util()?> m&sup2;
+	                </div>
+	            	<div class="texto_imovelsimples" style="width: 120px" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+	                 de &aacute;rea constru&iacute;da
+	                </div>
+                <?php endif; ?>
+                
+            	<div class="texto_imoveldestacado" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+            	Finalidade:
+            	
+                </div>
+            	<div class="texto_imovelsimples" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+                <?php 
+                switch($aRsImovel->getVenda_aluguel()){
+                	case 1: echo 'Aluguel';
+                	break;
+                	case 2: echo 'Venda';
+                	break;                			
+                }
+                ?>
+                </div>
+            
+            </div>
+            <div class="linha_imovel"></div>
+            <div class="tituloImovelDestaque" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+            	Localiza&ccedil;&atilde;o:
+            </div>
+            <div class="endImovel" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+             <?=$aRsImovel->getEndereco()?>
+            </div>
+            <div class="espaco_setor" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+            	<div class="font_setor" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">Setor:</div>
+				<div class="font_desc_setor" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+				<?php 
+					$bairroMapper = Application_Model_BairroMapper::instanciar();
+					$bairro = new Application_Model_Bairro();
+					$bairroMapper->find($aRsImovel->getIdsetor(),$bairro);						
+					echo $bairro->getNmsetor();
+				?>
+				</div>
+            </div>
+            <div class="espaco_setor" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+            	<div class="font_setor" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">Cidade:</div>
+				<div class="font_desc_setor" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+				<?php
+               		$cidadeMapper = Application_Model_CidadeMapper::instanciar();
+               		$cidade = new Application_Model_Cidade();
+               		$cidadeMapper->find($aRsImovel->getIdcidade(), $cidade);
+               		echo $cidade->getNmcidade();
+	            ?>
+				</div>
+            </div>
+            <div class="linha_imovel"></div>
+            <div class="tamanho_codigo_valor">
+            	<div class="botoes_codigo_valor bot_codigo" style=" color:<?php echo Zend_Registry::get('colorTxtDetalhes'); ?>; background:<?php echo Zend_Registry::get('backgroundBotDetalhes'); ?>;">C&oacute;digo: <?=$aRsImovel->getIdimovel()?> </div>
+            	<div class="botoes_codigo_valor bot_valor" style=" color:<?php echo Zend_Registry::get('colorTxtDetalhes'); ?>; background:<?php echo Zend_Registry::get('backgroundBotDetalhes'); ?>;">
+				<?php 
+                	switch($aRsImovel->getVenda_aluguel()){
+                        		
+						case 1: 
+							if(($aRsImovel->getValor_aluguel() * 1) > 0 && $aRsImovel->getPublicacao_exibir_valor()) {										
+								echo 'R$ ' . KM_formatNunber($aRsImovel->getValor_aluguel());
+							}else{
+								echo '<b>Sob Consulta</b>';
+							}
+						break;
+						case 2:	
+							if(($aRsImovel->getValor_venda() * 1) > 0 && $aRsImovel->getPublicacao_exibir_valor()) {
+								echo 'R$ ' . KM_formatNunber($aRsImovel->getValor_venda());									
+							} else {
+								echo '<b>Sob Consulta</b>';									
+							}
+						break; 
+					}	
+                ?> 		
+				</div>
+            </div>
+        </div>
+        
+        <div class="coluna03">
+        <style>
+            .menuDetalheImovel{
+			background-color:<?php echo Zend_Registry::get('backgroudAbaMenuDetalhesA'); ?>;	
+			color:<?php echo Zend_Registry::get('colorMenuDetalhesA'); ?>;	
+				}
+            .menuDetalheImovel:hover{
+			background-color:<?php echo Zend_Registry::get('backgroudAbaMenuDetalhesAHover'); ?>;	
+			color:<?php echo Zend_Registry::get('colorAbaMenuDetalhesAHover'); ?> !important;	
+				}
+        </style>
+        	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" onClick="$.fancybox({'href' :'#visita', beforeClose : function() {$('.formError').remove();}});" class="botoes_avancados menuDetalheImovel" 
+        	onmousemove="document.getElementById('imovel_interessado').value = <?=$aRsImovel->getIdimovel()?>;">
+	            <i class="fa fa-calendar iconeMenuDetalhes"></i> Agende uma visita
+            </a>
+            
+        	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" onClick="window.open('<?php echo $this->baseUrl();?>/atendimento/client.php?locale=en&amp;url=' + escape(document.location.href) + '&amp;referrer=' + escape(document.referrer), 'webim', 'toolbar=0,scrollbars=0,location=0,status=1,menubar=0,width=640,height=480,resizable=1');" class="botoes_avancados menuDetalheImovel">
+				<i class="fa fa-comments iconeMenuDetalhes"></i> Corretor Online
+            </a>
+
+        	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" onClick="$.fancybox({'href' :'#ligamos', beforeClose : function() {$('.formError').remove();}});" class="botoes_avancados menuDetalheImovel">
+				<i class="fa fa-mobile iconeMenuDetalhes"></i> Ligamos para voc&ecirc;
+            </a>
+            
+        	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" onClick="$.fancybox({'href' :'#signup', beforeClose : function() {$('.formError').remove();}});" class="botoes_avancados menuDetalheImovel">
+	          	<i class="fa fa-envelope-o iconeMenuDetalhes"></i> Envie um e-mail
+            </a>
+            
+        	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" onClick="$.fancybox({'href' :'#amigo', beforeClose : function() {$('.formError').remove();}});" class="botoes_avancados menuDetalheImovel"
+        	onmouseover="document.getElementById('imovel_indicado').value = <?=$aRsImovel->getIdimovel()?>;">
+            	<i class="fa fa-users iconeMenuDetalhes"></i> Indicar im&oacute;vel</a>            
+        </div>
+
+
+
+
+
+    </div> 
+	<?php 
+	
+	endforeach;
+	}else{
+		
+	?>
+	<script type="text/javascript">
+		$(document).ready(function(){
+	  		$("#botao_interesse").click(function(){
+	    		$("#div_interesse").animate({height:"160px"});
+	  		});
+		});
+	</script>		
+		<div class="msg_busca">
+			<div class="font_nenhum">Nenhum im&oacute;vel foi encontrado!</div><br />
+        <div class="linha_parceiros"></div>
+        <!-- -->
+        <div class="espaco_form_tenho">
+
+        <!-- bloco 2 -->
+        
+        <!-- fim bloco --->
+        </div>
+        <!-- -->
+		</div>
+	<?php 	
+	}
+	?>
+	<div class="divisor_imoveis"></div>
+	<div class="divisor_imoveis"></div>
+	<div class="espaco_paginacao_bs">
+    <?php 
+      	echo ($this->buscaImovel->getCurrentItemCount())?$this->paginationControl($this->buscaImovel, 'Sliding', 'pagination.phtml'):''; 
+    ?>    
+    </div>
+
+	</div>  
+	<!-- Fim 990 -->
+  </div>
+</div>
+<!-- Fim Conteudo -->

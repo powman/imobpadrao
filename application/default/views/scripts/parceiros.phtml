@@ -1,0 +1,39 @@
+        <style>
+            .colorSetaParceiros {
+			color:<?php echo Zend_Registry::get('colorSetaParceirosA'); ?>;
+			}
+			.colorSetaParceiros:hover {
+			color:<?php echo Zend_Registry::get('colorSetaParceirosAHover'); ?>;
+			}
+        </style>
+		<!-- Titulo -->
+<div style="margin:auto; width:1020px; margin-top:15px; margin-bottom:15px;">        
+        <div class="tituloPadraoInterna" style="color:<?php echo Zend_Registry::get('colorTxtTituloPadrao'); ?>;">
+			<i class="fa fa-chevron-right" style="color:<?php echo Zend_Registry::get('colorTxtTituloPadrao'); ?>;"></i>Parceiros
+		</div>
+		<!-- Fim Titulo -->
+</div>
+<div class="tamanhoConteudoParceiros" style="position: relative;"> 
+    	<div style="position: absolute; left: 3px; top: 70px;">
+	        <a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" id="prev2Homer" style="font-size: 25px;"> 
+	        	<i class="fa fa-angle-left colorSetaParceiros"></i>
+	        </a>
+	    </div>
+	    <div class="carouselhomedestaque" style=" margin-left:25px; margin-top: 15px;">
+	        <ul class="carousel">
+	            <?foreach($this->aParceiro as $parceiros):?>
+	            <li style="float: left; width: 150px; margin-right:5px; overflow: hidden;">
+		            <a target="_blank" title="<?php echo $parceiros->getNome();?>" href="<?php echo $parceiros->getLink() ? 'http://'.$parceiros->getLink() : 'javascript:;';?>" class="zooomInverso" style="background: url('<?php echo $this->baseUrl();?>/media/imagens/parceiros/<?php echo $parceiros->getImagem();?>') no-repeat center center; width: 150px; height: 120px; display: block; text-indent: -99999px;">
+		            	<?php echo $parceiros->getNome();?>
+		            </a>
+	            </li>
+	            <? endforeach; ?>
+	        </ul>
+	    </div>
+	    <div style="position: absolute; right: 3px; top: 70px;">
+	        <a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" id="next2Homer" style="font-size: 25px;"> 
+	        	<i class="fa fa-angle-right colorSetaParceiros"></i>
+	        </a>
+	    </div>
+	    <div style="clear: both;"></div>
+    </div>

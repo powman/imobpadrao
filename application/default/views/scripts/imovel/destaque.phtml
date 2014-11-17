@@ -1,0 +1,404 @@
+﻿<?php echo $this->render('buscaTopo.phtml');?>
+<div style="clear:both;"></div>
+<!-- Conteudo -->
+<div id="backgroudConteudo" style="background:<?php echo Zend_Registry::get('backgroudMeio'); ?>;">
+	<div class="tamanhoConteudo" style="background:<?php echo Zend_Registry::get('backgroundBlocoImob'); ?>; margin-top:10px;"> 
+		<!-- Titulo Detalhes -->
+		<div class="tamanho_titulo_detalhesImovel" style=" color:<?php echo Zend_Registry::get('colorTituloPgDetalhes'); ?>; border-bottom:<?php echo Zend_Registry::get('borderTituloPgDetalhes'); ?> 1px solid;">
+        	<i class="fa fa-circle" style="font-size:15px !important;"></i>  Detalhes do Im&oacute;vel
+        </div>
+		<!-- Fim Titulo Detalhes -->
+        <div class="coluna01">
+		<?php 
+        	/* Produto em destaque */
+        	$aImovel = $this->imovelDestaque;
+        	$tipoImovelMapper = Application_Model_TipoMapper::instanciar();
+			$imovelNome = new Application_Model_Tipo();
+			$tipoImovelMapper->find($aImovel->getIdtipo_imovel(),$imovelNome);
+			
+			/* Se não existir imagem, exibe imagem padrão*/
+			if(!$this->imagemDestaque){
+				$this->imagemDestaque = 'sem_imagem_detalhe.png';
+			}
+			
+			/* Faixa na foto com a finalidade do imóvel */
+			$tipoFaixa = null;
+			switch($aImovel->getVenda_aluguel()){
+				case 1: $tipoFaixa = 'aluguel.png';
+				break;
+				case 2: $tipoFaixa = 'venda.png';
+				break; 
+			}	
+			
+        ?>
+                	<!-- Imagem do Imovel -->
+                    <div class="imagemPrincipalDetalhes" align="center" style="background:<?php echo Zend_Registry::get('backgroundImgImob'); ?>;">
+						<a class="zooom aImgImoDetalhe" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" rel="imagem_grupo" style="background:url('<?php echo $this->baseUrl();?>/media/upload/imagens/<?=$this->imagemDestaque;?>') no-repeat center center;" href="<?php echo $this->baseUrl();?>/media/upload/imagens/<?=$this->imagemDestaque;?>" >
+							<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>
+                  		</a>
+                    </div>
+                	<!-- Fim Imagem do Imovel -->
+            		<div class="tituloFotos" style="color:<?php echo Zend_Registry::get('colorTituloPgDetalhes'); ?>;">
+            			Fotos
+            		</div>
+            <div class="tamanho_quadro_galeriaFotos" style="border:<?php echo Zend_Registry::get('borderTituloPgDetalhes'); ?> 1px solid;">
+            <?php 
+    		/* Imagens do imóvel */
+    		foreach($this->aTodasImagens as $todasImagens):    	
+    		?>
+      			<div class="galeriaDes"> 
+      				<a href="<?php echo $this->baseUrl();?>/media/upload/imagens/<?=$todasImagens?>" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" rel="imagem_grupo" class="mini_fotos"> 
+      					<img src="<?php echo $this->baseUrl();?>/media/upload/imagens/<?=$todasImagens?>" width="96px" height="60px" border="0" alt="" style="border:1px #C7C8CB solid"/> 
+      				</a> 
+      			</div>
+      		<?php	
+    		endforeach;
+    		?>
+            </div>
+        </div>
+        
+        <div class="coluna02">
+        <div>
+						<?php 
+						$server = $_SERVER['SERVER_NAME']; 
+						$endereco = $_SERVER ['REQUEST_URI'];
+						$enderecoCompletoUrl = "http://" . $server . $endereco;
+						?>
+                            <div style="float: left;">
+                            <iframe src="http://www.facebook.com/plugins/like.php?href=<?php echo $enderecoCompletoUrl;?>&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;height=36&&action=like&amp;font=tahoma&amp;colorscheme=dark" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100px; height:36px"></iframe>
+                            </div>
+                            <div style="float: left;">
+                            <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="" rel="nofollow">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+                            </div>
+                            <div style="float: left; padding-left: 15px;">
+                                <!-- Coloque esta tag onde voc� deseja que o bot�o +1 seja renderizado -->
+                                <g:plusone size="medium" href="<?php echo $enderecoCompletoUrl;?>"></g:plusone>
+
+                                <!-- Coloque esta chamada de renderiza��o conforme necess�rio -->
+                                <script type="text/javascript">
+                                  window.___gcfg = {lang: 'pt-BR'};
+
+                                  (function() {
+                                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                    po.src = 'https://apis.google.com/js/plusone.js';
+                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                                  })();
+                                </script>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+        	<div class="tituloImovel" style="color:<?php echo Zend_Registry::get('colorTituloPgDetalhes'); ?>;">
+            <?php
+        		/* Tipo de imóvel */
+        		echo $imovelNome->getNmtipo_imovel();
+        	?>
+            </div>
+            <div class="descricaoImovel" style="color:<?php echo Zend_Registry::get('colorTxtDescricaoDetalhes'); ?>;">
+            	<div class="tituloImovelDestaque">Descri&ccedil;&atilde;o</div>
+                <div style="clear:both;"></div>
+          	<?php 
+        		/* Descrição do imóvel */
+        		echo $aImovel->getDescricao();
+        	?> 
+            </div>
+            <div class="tamanho_codigo_valor">
+            	<div class="botoes_codigo_valor bot_codigo" style=" color:<?php echo Zend_Registry::get('colorTxtDetalhes'); ?>; background:<?php echo Zend_Registry::get('backgroundBotDetalhes'); ?>;">
+            		C&oacute;digo: 
+            		<?php
+						/* Código do imóvel definido pelo usuário */ 
+						echo $aImovel->getCodigo_sistema(); 
+					?> 
+            	</div>
+            	<div class="botoes_codigo_valor bot_valor" style=" color:<?php echo Zend_Registry::get('colorTxtDetalhes'); ?>; background:<?php echo Zend_Registry::get('backgroundBotDetalhes'); ?>;">
+            	<?php 
+            		/* Valor do imóvel */
+            		switch($aImovel->getVenda_aluguel()){
+            			case 1 : 
+            				if(($aImovel->getValor_aluguel() * 1) > 0 && $aImovel->getPublicacao_exibir_valor()){
+            					echo 'R$ '.KM_formatNunber($aImovel->getValor_aluguel());
+            				}else{
+            					echo '<b>Sob Consulta</b>';
+            				}
+            				break;
+            			case 2 :
+            				if(($aImovel->getValor_venda() * 1) > 0 && $aImovel->getPublicacao_exibir_valor()){
+            					echo 'R$ '.KM_formatNunber($aImovel->getValor_venda());
+            				}else{
+            					echo '<b>Sob Consulta</b>';
+            				}	
+            				break;
+            		}
+            	?>            	
+				</div>
+            </div>
+            <div class="linha_imovel" style="border-bottom:<?php echo Zend_Registry::get('borderPgDetalhes'); ?> 1px dotted;"></div>
+            <div class="colunaTexto01">
+            	<?php  
+    	            /* Quantidade de quartos no imóvel */
+            		if($aImovel->getQuarto()) {?>
+	            	<div class="texto_imoveldestacado">
+	            	<b>
+		   	        <?php 
+	        	    	echo $aImovel->getQuarto();
+	            	?>
+	                </b>
+	                quarto(s)
+	                </div>
+                <?php } ?>
+                
+                <?php 
+                /* Quantidade de suítes no imóvel */
+                if($aImovel->getSuite()){
+                ?>
+            		<div class="texto_imoveldestacado">
+            		<b>
+            		<?php 
+                		echo $aImovel->getSuite();
+                	?>
+                	</b>
+                 	su&iacute;te(s)
+                	</div>
+                <?php } ?>
+                
+                <?php 
+                if(($aImovel->getArea_util() * 1) > 0) {
+                ?>
+            		<div class="texto_imoveldestacado">
+            		<b>
+            	  	<?php 
+                		/* Área utilizavel do imóvel */
+                		echo $aImovel->getArea_util();
+                	?>
+            	  	m&sup2;</b>
+					&aacute;rea total
+                	</div>
+                <?php } ?>
+                
+            	<div class="texto_imoveldestacado">
+				<b>Tipo:</b>
+                <?php
+                   	/* Tipo do imóvel */
+        			echo $imovelNome->getNmtipo_imovel();
+        		?>
+                </div>
+            	<div class="texto_imoveldestacado">
+            	<b>Finalidade:</b>
+	            <?php
+                	/* Finalidade do imóvel */ 
+            		switch($aImovel->getVenda_aluguel()){
+            			case 1 : 
+            				echo 'Aluguel';
+            				break;
+            			case 2 :
+            				echo 'Venda';
+            				break;
+            		}
+                ?>
+                </div>
+            </div>
+            <div class="colunaTexto02">
+            <?php 
+            if(($aImovel->getSala_total() * 1)> 0 ){
+            ?>
+            	<div class="texto_imoveldestacado ">
+            	<b>
+            	<?php 
+                	/* Quantidade de salas no imóvel */
+                	echo $aImovel->getSala_total();
+                ?>
+                </b>
+                sala(s)
+                </div>
+            <?php } ?>    
+
+			<?php if(($aImovel->getGaragem_total()*1)>0){ ?>
+            	<div class="texto_imoveldestacado">
+				<?php 
+                	/* Quantidade de garagens */
+                	echo $aImovel->getGaragem_total();
+                ?>
+                 <b>garagem(s)</b>
+                </div>
+            <?php } ?>
+            
+            <?php if(($aImovel->getArea_terreno()*1) > 0){ ?>     
+            	<div class="texto_imoveldestacado">
+            	<b>
+            	<?php 
+                	/* Área do terreno */
+                	echo $aImovel->getArea_terreno();
+                ?> m&sup2;
+                </b>
+                 de &aacute;rea terreno
+                </div>
+            <?php } ?>    
+                
+            	<div class="texto_imoveldestacado">
+            	<b>Creci:</b>
+                   CJ19587
+                </div>
+                
+            <?php
+           	/* Se existir taxa de condomínio, exibe o valor */ 
+           	if (($aImovel->getValor_condominio() * 1 ) > 0) { 
+            ?>
+            	<div class="texto_imoveldestacado">
+            	<b>Valor Cond:</b>
+            	<?php echo $aImovel->getValor_condominio(); ?>
+                </div>
+            <?php } ?>
+            </div>
+            <div class="linha_imovel" style="border-bottom:<?php echo Zend_Registry::get('borderPgDetalhes'); ?> 1px dotted;"></div>
+            <?php if($aImovel->getEndereco()){ ?>
+	            <div class="tituloImovelDestaque">
+	            	Localiza&ccedil;&atilde;o
+	            </div>
+	            <div class="endImovel">
+	            <?php
+	               	/* Endereço do imóvel */ 
+	               	echo $aImovel->getEndereco();
+	
+	               	/* Imprime o complemento do imóvel caso exista */ 
+	                echo $aImovel->getComplemento() ? ' - ' . $aImovel->getComplemento() : '';
+	            ?>
+	            </div>
+	        <?php } ?>    
+            <div class="espaco_setor">
+            	<div class="font_setor">Setor:</div>
+				<div class="font_desc_setor">
+				<?php		        	
+                	/* Buscando o nome do bairro */
+		        	$bairroImovelMapper = Application_Model_BairroMapper::instanciar();
+					$bairroNome = new Application_Model_Bairro();
+					$bairroImovelMapper->find($aImovel->getIdsetor(),$bairroNome);
+					echo $bairroNome->getNmsetor();
+                ?>
+                </div>
+            </div>
+            <div class="espaco_setor">
+            	<div class="font_setor">Cidade:</div>
+				<div class="font_desc_setor">
+				<?php 
+                	/* Buscando o nome da cidade do imóvel */
+		        	$cidadeImovelMapper = Application_Model_CidadeMapper::instanciar();
+					$cidadeNome = new Application_Model_Cidade();
+					$cidadeImovelMapper->find($aImovel->getIdcidade(),$cidadeNome);					
+					echo $cidadeNome->getNmcidade();
+				?>
+				</div>
+            </div>
+            <div class="linha_imovel" style="border-bottom:<?php echo Zend_Registry::get('borderPgDetalhes'); ?> 1px dotted;"></div>
+			<div style="clear: both;"></div>
+            <?php if($aImovel->getLatitude() && $aImovel->getLongitude() && $aImovel->getLatitude() != '0.0000' && $aImovel->getLongitude() != '0.0000'){?>
+            
+			<input type="hidden" id="latitudeDestImovel" name="latitudeDestImovel" value="<?php echo $aImovel->getLatitude();?>"/>
+			<input type="hidden" id="longitudeDestImovel" name="longitudeDestImovel" value="<?php echo $aImovel->getLongitude();?>"/>
+			<input type="hidden" id="enderecoCompletoEmpresaAqui" name="enderecoCompletoEmpresaAqui" value="<?= $aImovel->getEndereco().' '.($aImovel->getComplemento() ? ' - ' . $aImovel->getComplemento() : '').', '.$bairroNome->getNmsetor().', '.$cidadeNome->getNmcidade()?>"/>
+			<ul class="map__control mapa_busca_legendas legendas" style="text-decoration: none; margin: 0px; padding: 0px;">
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/OQkz4rM9DsVqmALvgm9UNp4lCkT4eDdIv6Ldeq0zasG.png" alt="Academias"/><label><input type="checkbox" value="gym" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/OQkz4rM9DsVqmALvgm9UNp4lCkT4eDdIv6Ldeq0zasG.png"/> Academias</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/6EdUSF98JTYZWIlVeqDIgElA871AYy5P4k8Ul40kACy.png" alt="Bancos"/><label><input type="checkbox" value="bank" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/6EdUSF98JTYZWIlVeqDIgElA871AYy5P4k8Ul40kACy.png"/> Bancos</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/EgqfWOHfmiMwGHGmUZ83KFqc2L80gGHYWL3NtyvFboL.png" alt="Bar"/><label><input type="checkbox" value="bar" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/EgqfWOHfmiMwGHGmUZ83KFqc2L80gGHYWL3NtyvFboL.png"/> Bares</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/dnAxzgdnIX8Mv9C0LPSs1BHgP76ixlqFfBnHSUfgcUe.png" alt="Correios"/><label><input type="checkbox" value="post_office" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/dnAxzgdnIX8Mv9C0LPSs1BHgP76ixlqFfBnHSUfgcUe.png"/> Correios</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/S3Y3RV3PQEOXp51lI5waA3AOglHm97FFDl2wCrN0eVT.png" alt="Escolas"/><label><input type="checkbox" value="school" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/S3Y3RV3PQEOXp51lI5waA3AOglHm97FFDl2wCrN0eVT.png"/> Escolas</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/liOi5dI7YNkiYrg4VFE8SrJelHq4ZzAahDqZbWiqOpQ.png" alt="Farm&aacute;cias"/><label><input type="checkbox" value="pharmacy" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/liOi5dI7YNkiYrg4VFE8SrJelHq4ZzAahDqZbWiqOpQ.png"/> Farm&aacute;cias</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/22pnjJyKT10RHNH6aYPHMyXw4RTn5V4HfNDQH4YB9Ns.png" alt="Hospitais"/><label><input type="checkbox" value="hospital" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/22pnjJyKT10RHNH6aYPHMyXw4RTn5V4HfNDQH4YB9Ns.png"/> Hospitais</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/qeCO4zFFvL7BTrCjzGdp8RzHsJaQNzXjlFkiN3vIA9a.png" alt="Igrejas"/><label><input type="checkbox" value="church" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/qeCO4zFFvL7BTrCjzGdp8RzHsJaQNzXjlFkiN3vIA9a.png"/> Igrejas</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/68juwjkqwNuHHHs2r1GoZA7qs9Dzm7nM0djG1Aox5tE.png" alt="Locadoras"/><label><input type="checkbox" value="movie_rental" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/68juwjkqwNuHHHs2r1GoZA7qs9Dzm7nM0djG1Aox5tE.png"/> Locadoras</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/MSZiMGweLgz6oEh1Mt7fFxdX2cFVUzXuUilMClsCOYN.png" alt="Mercados"/><label><input type="checkbox" value="grocery_or_supermarket" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/MSZiMGweLgz6oEh1Mt7fFxdX2cFVUzXuUilMClsCOYN.png"/> Mercados</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/iVwJe7EJWiRom0VjwOTCqV3LM29OaQXXooVFwosslXw.png" alt="Padarias"/><label><input type="checkbox" value="bakery" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/iVwJe7EJWiRom0VjwOTCqV3LM29OaQXXooVFwosslXw.png"/> Padarias</label></li>
+			<li><img src="<?php echo $this->baseUrl();?>/media/_img/iconesMapa/jcq5LDa2oVUQqzANqUXM9mLK7sz6a9E6vt2lbC8Aiws.png" alt="Pol&iacute;cia"/><label><input type="checkbox" value="police" data-icon="https://d1h8v8ecaokgwa.cloudfront.net/static/jcq5LDa2oVUQqzANqUXM9mLK7sz6a9E6vt2lbC8Aiws.png"/> Pol&iacute;cia</label></li>
+			</ul>
+			<div id="map-canvas" style="width:500px; height: 300px;">
+				
+			</div>
+			<?php }?>
+			<div style="margin-top: 10px;">
+				<div class="fb-comments" data-href="<?php echo $enderecoCompletoUrl;?>" data-width="500" data-numposts="2" data-colorscheme="light"></div>
+			</div>
+			<style>
+			.map__control{
+				padding: 10px 0px !important;
+			}
+			.map__control li{
+				display: inline-block;
+				padding: 0px 5px;
+				width: 110px;
+			}
+			.map__control li img{
+				vertical-align:-3px;
+			padding-right: 3px;
+			}
+			
+			.map__control li label{
+				font-size:10px;
+			}
+			</style>
+			
+			
+
+        </div>
+
+        <div class="coluna03">
+        <style>
+            .menuDetalheImovel{
+			background-color:<?php echo Zend_Registry::get('backgroudAbaMenuDetalhesA'); ?>;	
+			color:<?php echo Zend_Registry::get('colorMenuDetalhesA'); ?>;	
+				}
+            .menuDetalheImovel:hover{
+			background-color:<?php echo Zend_Registry::get('backgroudAbaMenuDetalhesAHover'); ?>;	
+			color:<?php echo Zend_Registry::get('colorAbaMenuDetalhesAHover'); ?> !important;	
+				}
+			#financiamentos{
+				text-decoration: none;
+				padding: 0px;
+				margin: 0px;
+				list-style: none;
+				margin-left: 5px;
+			}
+			
+			#financiamentos li{
+				margin: 5px 0px;
+			}
+			
+			#financiamentos img{
+				width: 190px;
+			}
+        </style>
+        	<a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" class="botoes_avancados  menuDetalheImovel" onmousemove="document.getElementById('imovel_interessado').value = <?=$aImovel->getIdimovel()?>;" onClick="$.fancybox({'href' :'#visita', beforeClose : function() {$('.formError').remove();}});">
+            <i class="fa fa-calendar iconeMenuDetalhes"></i> Agende uma visita
+            </a>
+            
+        	<a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" onClick="$.fancybox({'href' :'#ligamos', beforeClose : function() {$('.formError').remove();}});" class="botoes_avancados  menuDetalheImovel"><i class="fa fa-mobile iconeMenuDetalhes"></i> Ligamos para voc&ecirc;</a>
+            
+        	<a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" onClick="$.fancybox({'href' :'#signup', beforeClose : function() {$('.formError').remove();}});" class="botoes_avancados  menuDetalheImovel"><i class="fa fa-comments iconeMenuDetalhes"></i> Envie um e-mail</a>
+            
+        	<a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" class="botoes_avancados  menuDetalheImovel"
+        	onmousemove="document.getElementById('imovel_indicado').value = <?=$aImovel->getIdimovel()?>;" onClick="$.fancybox({'href' :'#amigo', beforeClose : function() {$('.formError').remove();}});"><i class="fa fa-users iconeMenuDetalhes"></i> Indicar im&oacute;vel</a> 
+        	
+        	<div>
+	        	<h2 style="margin-top: 25px; padding-left:5px; padding-bottom: 5px; font-family: 'MontserratRegular'; font-size: 17px;">
+	        		Financiamentos
+	        	</h2>
+        		<ul id="financiamentos">
+				<li>
+					<a href="javascript:;">
+						<img src="<?php echo $this->baseUrl();?>/media/_img/iconesFinan/caixa.png" class="financiamento-button-caixa">
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="<?php echo $this->baseUrl();?>/media/_img/iconesFinan/bb.png" class="financiamento-button-bancodobrasil">
+					</a>
+				</li>
+				</ul>
+        	</div>
+
+        </div>
+        <div style="clear: both;"></div>
+        
+
+	<!-- Fim 990 -->
+  </div>
+  
+</div>
+<!-- Fim Conteudo -->

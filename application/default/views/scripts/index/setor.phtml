@@ -1,0 +1,26 @@
+<div id="bairro-header" class="header">
+<div style="float:right; cursor:pointer;" onclick="$('#cidade').fadeOut(); $('#lean_overlay').fadeOut(200);"><b>X</b></div>
+<h2>Buscar Bairro</h2>
+<p>Localidade (selecione um ou mais <?=HTMLENTITIES('critérios')?>):</p>
+</div>
+	
+		<div class="janela_meio">
+		<?php 
+			foreach($this->aBairro as $bairro):
+		?>
+		<div class="janela_item">
+			<div class="janela_combo">
+				<input name="name_setor" id="id_setor_<?=$bairro->getIdsetor()?>" type="checkbox" class="checkBox" value="<?=$bairro->getIdsetor()?>" />
+			</div>			
+			<div class="janela_label">
+				<?=HTMLENTITIES($bairro->getNmsetor())?>
+			</div>
+		</div>
+		<?php 
+			endforeach;
+		?>
+		</div>
+		
+<div class="btn-fld" id="div_bairro">
+	<button type="button" id="submit_setor">Adicionar</button>
+</div>

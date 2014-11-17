@@ -1,0 +1,54 @@
+<div class="bgPadraoFundo">
+	<div class="bgTituloPaginas">
+	<!-- Maps-->
+    	<div class="menuRapido">
+        <a class="menuMaps">Página Inicial</a>
+        <a>></a>
+        <a class="menuMaps">Mapa do Site</a>
+        </div>
+	<!-- Maps-->
+    <!-- Titulo -->
+    	<div class="titulo">
+        Lamentamos, mas ocorreu um erro na sua navegação.       
+        </div>
+    <!-- Titulo -->
+	</div>
+	<div class="position_livre_img">
+    <div class="position_livre_banner">
+    	<div class="img_alerta">
+        
+        </div>
+    </div>
+    
+    </div>
+	<div class="conteudoInterno">
+    	
+        <!-- DEBUG DE ERRO -->
+        
+        <div style="font-family:Verdana, Geneva, sans-serif; padding-left:10px; font-size:16px; color:#666;" align="left">
+		<?php if (isset($this->exception)): ?>
+		<h3><?php echo $this->message ?></h3>
+        <div style="color:#666">
+		  
+		
+		  <h3>Exception information:</h3>
+		  <p>
+		      <b>Message:</b> <?php echo $this->exception->getMessage() ?>
+		  </p>
+		
+		  <h3>Stack trace:</h3>
+		  <pre><?php echo $this->exception->getTraceAsString() ?>
+		  </pre>
+		
+		  <h3>Request Parameters:</h3>
+		  <pre><?php echo var_export($this->request->getParams(), true) ?>
+		  </pre>
+		  <?php endif ?>
+		
+		</div>
+        
+        
+        <!-- FIM DO DEBUG -->
+	
+	</div>
+</div>

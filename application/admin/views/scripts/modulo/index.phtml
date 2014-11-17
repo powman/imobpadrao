@@ -1,0 +1,48 @@
+<h2>Listagem de módulos</h2>
+<div align="right">
+<?php echo $this->ActionButton('modulo','incluir','admin','Cadastrar');?>
+</div>
+<br/>
+<div id="permissao-dialog" title="Permiss�es do modulo"><!-- Janela de controle de permiss�es --></div>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" id="table_liquid">
+<caption>Listagem de módulos cadastrados no sistema.</caption>
+	<tr>
+		<th width="150px">Nome</th>
+		<th width="300px">Descrição</th>
+		<th>Ativo</th>
+		<th>Ações</th>
+	</tr>
+<?php 
+$class ='alt';
+if($this->entries):
+foreach ( $this->entries as $entry ) :
+	if($class=='alt')
+				$class='';
+			else
+				$class='alt';
+	?>
+  <tr>
+		<th class="spec<?php echo $class;?>"><?php
+	echo $entry['nmmodulo'];
+	?></th>
+		<td class="<?php echo $class;?>"><?php
+	echo $entry['descricao'];
+	?></td>
+		<td class="<?php echo $class;?>"><?php
+	echo ($entry['ativo'])?'Sim':'Não';
+	?></td>
+		<td align="center" class="<?php echo $class;?>">
+		<a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$this->url ( array ('controller' => 'modulo', 'action' => 'permissao', 'module'=>'admin', 'id' => $entry['idModulo'] ), 'default', true )?>" class="button permissao" style="text-decoration: none;" >Permissões</a>
+		<?php 
+			echo $this->ActionButton('modulo','alterar','admin','Alterar',array('id'=> $entry['idModulo'])).' '; 
+			 
+			echo $this->ActionButton('modulo','excluir','admin','Excluir',array('id'=> $entry['idModulo'])).' ';
+		?>
+		</td>
+	</tr>
+<?php
+endforeach;
+endif;
+?>
+</table>
+<?php echo $this->paginationControl($this->entries, 'Sliding', 'pagination.phtml'); ?>

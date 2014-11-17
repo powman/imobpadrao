@@ -1,0 +1,6 @@
+<h1><?php echo $this->headerText?></h1>
+<?php if($this->warningMessage):?><div class="message error closeable"><p><?php echo $this->warningMessage;?></p></div><?php endif;?>
+<div align="right"></div>
+<?php
+echo $this->form;
+?>

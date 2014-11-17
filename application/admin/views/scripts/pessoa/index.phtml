@@ -1,0 +1,52 @@
+<h2>Listagem de pessoa</h2>
+<div align="right">
+	<?php echo $this->ActionButton('pessoa','incluir','admin','Cadastrar');?>
+</div>
+<br />
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+	id="table_liquid">
+	<caption>Listagem de pessoas.</caption>
+	<tr>
+		<th width="240px">Nome</th>
+		<th width="450px">Vendedor</th>
+		<th>Ações</th>
+	</tr>
+<?php
+$class = 'alt';
+if ($this->entries) :
+	foreach ($this->entries->getCurrentItems() as $entry) :
+		if ($class == 'alt')
+			$class = '';
+		else
+			$class = 'alt';
+		?>
+  <tr>
+		<th class="spec<?php
+		echo $class;
+		?>"><?php
+		echo $entry['nome'];
+		?></th>
+		<td class="<?php
+		echo $class;
+		?>"><?php
+		if(!$entry['idVendedor']){
+			echo 'Nenhum vendedor cadastrado';;
+		}else{
+			echo $entry['idVendedor'];
+		}
+		?></td>
+		<td align="center" class="<?php
+		echo $class;
+		?>">
+		<?php
+		echo $this->ActionButton('pessoa','alterar','admin','Alterar',array('id'=> $entry['idPessoa'])).' '; 
+		echo $this->ActionButton('pessoa','excluir','admin','Excluir',array('id'=> $entry['idPessoa']));
+		?> 
+		</td>
+	</tr>
+<?php
+	endforeach;
+	endif;
+?>
+</table>
+<?php echo $this->paginationControl($this->entries, 'Sliding', 'pagination.phtml'); ?>

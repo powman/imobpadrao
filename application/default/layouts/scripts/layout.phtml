@@ -1,0 +1,443 @@
+<?= $this->doctype() ?>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-Language" content="pt-BR" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta name="robots" content="ALL" />
+        <meta name="keywords" content="<?php echo $this->metapalavrachave;?>" />
+        <meta name="description" content="<?php echo $this->metadescricao;?>"/>
+        <meta name="resource-types" content="document" />
+        <meta name="revisit-after" content="1 day" />
+        <meta name="distribution" content="Global" />
+        <meta name="rating" content="General" />
+        <meta name="author" content="Netsuprema" />
+        <meta name="language" content="pt-br" />
+        
+        <meta property="og:locale" content="pt_BR">
+		<meta property="og:url" content="<?=isset($this->url) ? $this->url : 'http://'.$_SERVER['SERVER_NAME'];?>">
+		<meta property="og:title" content="<?=isset($this->titulo) ? $this->titulo : Zend_Registry::get('nomeEmpresa');?>">
+		<meta property="og:site_name" content="<?php echo Zend_Registry::get('nomeEmpresa');?>">
+		<meta property="og:type" content="Imóveis"/>
+		<meta property="og:description" content="<?=$this->metadescricao?>">
+		<meta property="og:image" content="<?=$this->imagemDestaque ? 'http://'.$_SERVER['SERVER_NAME']."/media/upload/imagens/".$this->imagemDestaque  : 'http://'.$_SERVER['SERVER_NAME']."/media/_img/topo/logo.png" ;?>">
+		<meta property="og:image:width" content="1200"> 
+		<meta property="og:image:height" content="630"> 
+		<meta property="og:type" content="website">
+		 
+		 
+        
+        
+        <link rel="shortcut icon" href="<?php echo $this->baseUrl(); ?>/media/_img/patrick.ico"/>
+        <? $this->headLink()->appendStylesheet($this->baseUrl() . '/media/css/index.css') ?>
+        <? $this->headLink()->appendStylesheet($this->baseUrl() . '/media/css/padrao.css') ?>
+        <? $this->headLink()->appendStylesheet($this->baseUrl() . '/media/css/menu_topo.css') ?>
+        <? $this->headLink()->appendStylesheet($this->baseUrl() . '/media/css/banner.css') ?>
+        <? $this->headLink()->appendStylesheet($this->baseUrl() . '/media/css/topo.css') ?>
+        <? $this->headLink()->appendStylesheet($this->baseUrl() . '/media/css/rodape.css') ?>
+        <? $this->headLink()->appendStylesheet($this->baseUrl() . '/media/css/shadowbox.css') ?>
+		<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/css/fonte/font-awesome.min.css') ?>
+		<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/js/fancybox/css/estilo.css') ?>
+		<? $this->headLink()->appendStylesheet($this->baseUrl().'/media/js/validateForm/css/estilo.css') ?>
+		<link type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+
+        <?= $this->cssHelper() ?>
+        <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="text/javascript"></script> 
+        
+        <? $this->headScript()->appendFile($this->baseUrl() . '/media/js/yepnope/yepnope.js') ?>
+        <? $this->headScript()->appendFile($this->baseUrl() . '/media/js/fancybox/jquery.fancybox-1.3.4.js') ?>
+        <? $this->headScript()->appendFile($this->baseUrl() . '/media/js/fancybox/jquery.mousewheel-3.0.4.pack.js') ?>
+        <? $this->headScript()->appendFile($this->baseUrl() . '/media/js/validateForm/jquery.validationEngine.js') ?>
+        <? $this->headScript()->appendFile($this->baseUrl() . '/media/js/validateForm/jquery.validationEngine-pt.js') ?>
+        <? $this->headScript()->appendFile($this->baseUrl() . '/media/js/jquery.mask.min.js') ?>
+        <? $this->headScript()->appendFile($this->baseUrl() . '/media/js/notify/jquery.noty.packaged.min.js') ?>
+        <? $this->headScript()->appendFile($this->baseUrl() . '/media/js/script.js') ?>
+        
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+        
+        <script>
+        	pathSite = '<?php echo $this->baseUrl(); ?>/';
+        </script>
+        
+        <style>
+            #example-two li a {
+			color:<?php echo Zend_Registry::get('menuA'); ?>;
+			}
+			#example-two li a:hover {
+			color:<?php echo Zend_Registry::get('menuAHover'); ?>;
+			}
+			.iconesTopo:hover {
+			color:<?php echo Zend_Registry::get('menuAHover'); ?> !important; 
+			}
+        </style>
+        
+        <title><?php echo $this->metatitle?></title>
+
+        <!--[if IE]>
+        <![endif]-->
+        <?= $this->javascriptHelper(); ?>
+        <?= $this->headScript() ?>
+    </head>
+    <body  style="background:<?php echo Zend_Registry::get('backgroudMeio'); ?>;">
+    
+
+    <!-- Topo -->
+    <div id="backgroudTopo" style="background:<?php echo Zend_Registry::get('backgroundTopo'); ?>;">
+		<!-- Faixa Topo -->
+   		<div class="faixaTopo" style="background:<?php echo Zend_Registry::get('backgroudFxTopo'); ?>;">
+
+        </div>
+		<!-- Fim Faixa Topo -->
+
+        <div class="tamanhoTopo">
+            
+            <a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" class="TradicaoImoveis-logomarca" href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>" target="_self"> 
+                <img src="<?php echo $this->baseUrl(); ?>/media/_img/topo/logo.png" border="0" height="147" alt="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" />
+            </a>
+          <div class="espacoMenu">
+          
+            
+              <ul class="group" id="example-two">
+                  <li> 
+                  	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>"  href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index'), 'default', true); ?>">
+                    	P&aacute;gina Inicial 
+					</a>
+                  </li>  
+                  <li> 
+                  	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>"  href="<?php echo $this->url(array('controller' => 'institucional', 'action' => 'index'), 'default', true); ?>">
+                    	Quem Somos
+                  	</a>
+                  </li>
+                  <li> 
+                  	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="<?php echo $this->url(array('controller' => 'servicos', 'action' => 'index'), 'default', true); ?>">
+                    	Serviços
+                  	</a>
+                  </li>
+                  <li> 
+                  	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="<?php echo Zend_Registry::get('url2viaBoleto');?>" target="_blank">
+                    	2&ordf; Via de Boletos
+                  	</a>
+                  </li>  
+
+                  <li> 
+                  	<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>"  href="<?php echo $this->url(array('controller' => 'centralatendimento', 'action' => 'index'), 'default', true); ?>">
+                    	Contato
+                  	</a>
+                  </li>
+              </ul>
+            </div>
+            <div style="clear:both;"></div>
+            
+            <div class="iconeFonoTopo">
+            	<i class="fa fa-phone" style="font-size:35px;"></i> <?php echo mascara('(##) ####-####',Zend_Registry::get('empresaTelefone'));?>
+            </div>
+            
+            <div style="clear:both;"></div>
+            
+            <div class="icon_menu"> 
+            
+				<a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" onClick="$.fancybox({'href' :'#visita', beforeClose : function() {$('.formError').remove();}});" class="iconesTopo" style="color:<?php echo Zend_Registry::get('iconeA'); ?>">
+                <i class="fa fa-calendar" style="font-size:26px;"></i> Agende uma visita
+                </a>
+                
+				<a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" onClick="$.fancybox({'href' :'#ligamos', beforeClose : function() {$('.formError').remove();}});" class="iconesTopo" style="color:<?php echo Zend_Registry::get('iconeA'); ?>">
+                <i class="fa fa-phone" style="font-size:26px;"></i> Ligamos pra voc&ecirc;
+                </a>
+                
+				<a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" class="iconesTopo" onClick="$.fancybox({'href' :'#signup', beforeClose : function() {$('.formError').remove();}});" style="color:<?php echo Zend_Registry::get('iconeA'); ?>">
+                <i class="fa fa-envelope" style="font-size:26px;"></i> Envie um e-mail
+                </a>
+                
+				<a href="javascript:;" title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" onClick="window.open('<?php echo $this->baseUrl();?>/atendimento/client.php?locale=en&amp;url=' + escape(document.location.href) + '&amp;referrer=' + escape(document.referrer), 'webim', 'toolbar=0,scrollbars=0,location=0,status=1,menubar=0,width=640,height=480,resizable=1');" class="iconesTopo" style="color:<?php echo Zend_Registry::get('iconeA'); ?>">
+                <i class="fa fa-comments" style="font-size:26px;"></i> Corretor OnLine
+                </a>
+            
+            
+            </div>
+        </div>
+    </div>
+    <!-- Fim Topo -->
+    
+    
+<?php echo $this->layout()->content ?>		
+    <!-- Rodape -->
+    <div id="backgroudRodape" style="background:<?php echo Zend_Registry::get('backgroundRodape'); ?>;">
+    	<div class="tamanhoRodape">
+			<!-- Rede Social -->
+        	<div class="blocoRedeSocialRodape">
+			<style>
+				.iconesRodape{
+				color:<?php echo Zend_Registry::get('iconeRodapeA'); ?> !important; 		
+					}
+				.iconesRodape:hover {
+				color:<?php echo Zend_Registry::get('iconeRodapeAHover'); ?> !important; 
+				}
+	        </style>
+	        	<?php if(Zend_Registry::get('redeFacebook')){?>
+        		<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="<?php echo Zend_Registry::get('redeFacebook');?>" target="_blank" class="iconesRodape">
+                	<i class="fa fa-facebook-square"></i>
+				</a>
+                <?php }?>
+                <?php if(Zend_Registry::get('redeTwitter')){?>
+        		<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="<?php echo Zend_Registry::get('redeTwitter');?>" target="_blank" class="iconesRodape">
+                	<i class="fa fa-twitter-square"></i>
+                </a>
+                <?php }?>
+                <?php if(Zend_Registry::get('redeYoutube')){?>
+        		<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="<?php echo Zend_Registry::get('redeYoutube');?>" target="_blank" class="iconesRodape">
+                	<i class="fa fa-youtube"></i>
+                </a>
+                <?php }?>
+                <?php if(Zend_Registry::get('redeLinkedin')){?>
+        		<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="<?php echo Zend_Registry::get('redeLinkedin');?>" target="_blank" class="iconesRodape">
+                	<i class="fa fa-linkedin-square"></i>
+				</a>
+				<?php }?>
+        	</div>
+			<!-- Fim Rede Social -->
+            
+			<!-- Endereço -->
+        	<div class="blocoEnderecoRodape">
+    			<p class="txtEnderecoRodape" style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">
+                	
+					<?php echo Zend_Registry::get('empresaEndereco');?> Setor: <?php echo Zend_Registry::get('empresaSetor');?>
+                    <?php echo Zend_Registry::get('empresaCidade');?> - <?php echo Zend_Registry::get('empresaUf');?>
+                    Telefone: <?php echo mascara('(##) ####-####',Zend_Registry::get('empresaTelefone'));?> 
+                    E-mail: <?php echo Zend_Registry::get('empresaEmail');?>
+                </p>
+        	</div>
+			<!-- Fim Endereço -->
+            
+            
+			<!-- Contato -->
+        	<div class="blocoAtendimentoRodape">
+        		<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="http://netsuprema.com.br" target="_blank" title="Net Suprema" class="netsuprema">
+                	<img src="http://netsuprema.com.br/media/desenvolvido/net_124x42_branca.png" border="0" alt="Net Suprema">
+                </a>
+                
+        	</div>
+			<!-- Fim Contato -->
+        
+        
+        </div>
+    </div>
+    <!-- Fim Rodape -->
+
+
+<!-- Contato -->
+<div id="signup" class="janela" style="width: 405px">
+    <div id="signup-ct">
+        <div id="signup-header" class="header" style="background:<?php echo Zend_Registry::get('backgroundRodape'); ?>; color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">			
+            <h2 style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">Contato</h2>
+            <p style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">Sua opini&atilde;o &eacute; muito importante para n&oacute;s. Utilize o espa&ccedil;o abaixo para sugerir, criticar, tirar d&uacute;vidas ou solicitar informa&ccedil;&otilde;es sobre nossos servi&ccedil;os.</p>
+        </div>
+        <p class="error"><span>Preencha corretamente todos os campos</span></p>
+        <form action="javascript:;" name="form_signup2" id="form_signup2" method="post">
+            <div class="txt-fld">
+                <label for="">Nome</label>
+                <input type="hidden" name="acao" id="acaoContato" value="<?php echo $this->url(array('controller' => 'contato', 'action' => 'contato'), 'default', true) ?>"/>
+                <input id="contato_nome" name="contato_nome" type="text" class="validate[required]" />
+            </div>
+            <div class="txt-fld">
+                <label for="">Email</label>
+                <input id="contato_email" name="contato_email" type="text" class="validate[required,custom[email]]"   />
+            </div>
+            <div class="txt-fld">
+                <label for="" >Telefone</label>
+                <input id="contato_telefone" name="contato_telefone" type="text" class="validate[required] telefoneMask"  />
+            </div>
+            <div class="txt-fld">
+                <label for="">Mensagem</label>
+                <textarea id="contato_mensagem" name="contato_mensagem" cols="30" rows="5"  class="validate[required]" ></textarea>
+            </div>
+            <div class="espaco_form_captcha">
+                <?php
+                    $captcha = new Zend_Captcha_Image();
+                    $captcha->setTimeout('500')
+                            ->setWordLen('4')
+                            ->setHeight('35')
+                            ->setWidth('80')
+                            ->setFontSize('13')
+                            ->setLineNoiseLevel('0')
+                            ->setGcFreq('0')
+                            ->setDotNoiseLevel('0')
+                            ->setFont(APPLICATION_PATH . '/../media/font/Engr.TTF')
+                            ->setImgDir(APPLICATION_PATH . '/../media/imagens/captcha');
+                    $captcha->generate();
+                    $idCaptcha = $captcha->getId();
+                ?>
+                <label for="captcha" class="titulo_form">Digite o que est&aacute; na imagem ao lado</label>
+                <img src="<?php echo $this->baseUrl() ?>/media/imagens/captcha/<?php echo $idCaptcha ?>.png" id="imgcaptcha" alt="captcha">
+                <input type="text" name="captcha[input]" class="validate[required]" id="captchafff"/>
+                <input type="hidden" value="<?php echo $idCaptcha ?>"  name="captcha[id]"    />
+            </div>     
+            <div style="margin-top: 10px;">				  		
+                <button type="submit" id="submit_contato">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Contato -->
+
+<!-- Avalia��o -->
+<div id="avaliacao" class="janela" style="width: 405px">
+    <div id="avaliacao-ct">
+        <div id="avaliacao-header" class="header" >
+            <h2>Anuncie seu Im&oacute;vel</h2>
+            <p>
+                Cadastre seu im&oacute;vel para venda e aluguel, envie-nos os seus contatos e os dados do seu im&oacute;vel.
+            </p>
+        </div>
+        <p class="error"><span>Preencha corretamente todos os campos</span></p>
+        <form action="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'contato', 'action' => 'avaliacao'), 'default', true) ?>" name="form_avaliacao" id="form_avaliacao" method="post">
+            <div class="txt-fld">
+                <label for="">Nome</label>
+                <input id="avaliacao_nome" name="avaliacao_nome" type="text" class="obrigatorio" />
+            </div>
+            <div class="txt-fld">
+                <label for="">Email</label>
+                <input id="avaliacao_email" name="avaliacao_email" type="text" class="obrigatorio"   />
+            </div>
+            <div class="txt-fld">
+                <label for="" >Telefone</label>
+                <input id="avaliacao_telefone" name="avaliacao_telefone" type="text" class="obrigatorio"  />
+            </div>
+            <div class="txt-fld">
+                <label for="">Mensagem</label>
+                <textarea id="avaliacao_mensagem" name="avaliacao_mensagem" cols="30" rows="5"  class="obrigatorio" ></textarea>
+            </div>
+            <div class="btn-fld">
+                <button type="submit_avaliacao">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Avalia��o -->
+
+<!-- Ligamos pra voc�-->
+<div id="ligamos" class="janela" style="width: 405px;">
+    <div id="ligamos-ct">
+        <div id="ligamos-header" class="header" style="background:<?php echo Zend_Registry::get('backgroundRodape'); ?>; color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">
+            <h2 style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">Ligamos para voc&ecirc;</h2>
+            <p style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">Preencha corretamente os dados abaixo:</p>
+        </div>
+        <form action="javascript:;" method="post" name="form_ligar" id="form_ligar">
+			<input type="hidden" name="acao" id="acaoLigar" value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'contato', 'action' => 'ligar'), 'default', true) ?>"/>
+            <div class="txt-fld">
+                <label for="">Nome</label>
+                <input id="ligar_nome" name="ligar_nome" type="text" class="validate[required]" />
+            </div>
+            <div class="txt-fld">
+                <label for="">Email</label>
+                <input id="ligar_email" name="ligar_email" type="text" class="validate[required,custom[email]]"   />
+            </div>
+            <div class="txt-fld">
+                <label for="">Assunto</label>
+                <input id="ligar_assunto" name="ligar_assunto" type="text" class="obrigatorio"   />
+            </div>
+            <div class="txt-fld">
+                <label for="" >Telefone</label>
+                <input id="ligar_telefone" name="ligar_telefone" type="text" class="validate[required] telefoneMask"  />
+            </div>
+
+            <div class="btn-fld">
+                <button id="submit_ligar" type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Ligamos pra voc�-->
+
+<!-- Agenda uma visita-->
+<div id="visita" class="janela" style="width: 405px">
+    <div id="visita-ct">
+        <div id="visita-header" class="header" style="background:<?php echo Zend_Registry::get('backgroundRodape'); ?> ; color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">
+            <h2 style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">Agende uma visita</h2>
+            <p style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">Por favor, preencha os dados abaixo que em breve um de nossos corretores entrar&aacute; em contato para confirmar a data e hor&aacute;rio de sua visita. </p>
+        </div>
+        <div id="visita-body" >
+            <form action="javascript:;" name="form_visita" id="form_visita" method="post">
+				<input type="hidden" name="acao" id="acaoAgende" value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'contato', 'action' => 'agenda'), 'default', true) ?>"/>
+                <div class="txt-fld">
+                    <label for="">Nome</label>
+                    <input id="imovel_interessado" type="hidden" name="imovel_interessado" value=""/>
+                    <input id="visita_nome" name="visita_nome" type="text" class="validate[required]" />
+                </div>
+                <div class="txt-fld">
+                    <label for="" >Telefone</label>
+
+                    <input id="visita_telefone" name="visita_telefone" type="text" class="telefoneMask validate[required]"  />
+                </div>
+                <div class="txt-fld">
+                    <label for="">Data da visita</label>
+                    <input id="visita_data" name="visita_data" type="text" class="dataMask validate[required]"   />
+                </div>
+                <div class="txt-fld">
+                    <label for="">Horário da visita</label>
+                    <input id="visita_horario" name="visita_horario" type="text" class="horarioMask validate[required]"   />
+                </div>
+
+                <div class="txt-fld">  
+                    <label for="">Email</label>
+                    <input id="visita_email" name="visita_email" type="text" class="validate[required,custom[email]]"   />				    
+                </div>				  
+
+                <div class="btn-fld">
+                    <button type="submit" id="submit_visita">Enviar</button>
+                </div>
+            </form></div>
+    </div>
+</div>
+<!-- Agenda uma visita-->
+
+<!-- Indique um amigo-->
+<div id="amigo" class="janela" style="width: 405px;">
+    <div id="amigo-ct">
+        <div id="amigo-header" class="header" style="background:<?php echo Zend_Registry::get('backgroundRodape'); ?> ;">
+            <h2 style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">Indique para um amigo</h2>
+            <p style="color:<?php echo Zend_Registry::get('colorTxtRodape'); ?>;">Indique um amigo para conhecer esse im&oacute;vel.</p>
+        </div>
+        <p class="error"><span>Preencha corretamente todos os campos</span></p>
+        <form action="" method="post" name="form_amigo" id="form_amigo">
+
+            <div class="txt-fld">
+                <label for="">Seu Nome</label>
+                <input id="seu_nome" name="seu_nome" type="text" class="validate[required]" />
+                <input type="hidden" name="imovel_indicado" id="imovel_indicado" value="<?php echo $this->idImovelDestaque; ?>" />		
+                <input type="hidden" name="acao" id="acaoIndique" value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url(array('controller' => 'contato', 'action' => 'indicar'), 'default', true) ?>"/>		    
+            </div>
+
+            <div class="txt-fld">
+                <label for="">Nome do amigo</label>
+                <input id="nome_amigo" name="nome_amigo" type="text" class="validate[required]"   />
+            </div>
+
+            <div class="txt-fld">
+                <label for="">Email do amigo</label>
+                <input id="email_amigo" name="email_amigo" type="text" class="validate[required,custom[email]]"   />
+            </div>
+
+            <div class="btn-fld">
+                <button id="submit_amigo" type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Indique um amigo-->
+
+<script src="<?php echo $this->baseUrl() . '/media/js/mapa.js'?>"></script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&appId=258411514305926&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- fim Janelas popup -->
+</body>
+</html>

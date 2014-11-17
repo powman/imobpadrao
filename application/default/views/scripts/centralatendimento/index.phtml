@@ -1,0 +1,62 @@
+﻿<?php if($this->invalidCaptcha): ?>
+<script>alert('Os caracteres n&atilde;o conferem com o da imagem!');</script>
+<?php endif;?>
+<div id="backgroudConteudo">
+    <div class="tamanhoConteudo">
+        <div class="conteudoMeio">
+            <!-- Titulo -->
+            <div class="titulo_atendimento" style="color:<?php echo Zend_Registry::get('colorTxtTituloPadrao'); ?>;">
+            	<i class="fa fa-chevron-right"></i> ATENDIMENTO
+            </div>
+            <div class="linha_atendimento"></div>
+            <div class="box_formulario">
+                <form action="javascript:;" name="form_signup" id="form_signup" method="post">
+                    <div class="espaco_form">
+                        <label for="atendimento" class="titulo_contato">Nome </label>
+                        <input id="contato_nome" name="contato_nome" type="text" class="form_contato validate[required]" />
+                    </div>
+
+                    <div class="espaco_form">
+                        <label for="atendimento" class="titulo_contato">E-mail </label>
+                        <input id="contato_email" name="contato_email"  type="text" class="form_contato validate[required,custom[email]]" />
+                    </div>
+
+                    <div class="espaco_form">
+                        <label for="atendimento" class="titulo_contato">Telefone </label>
+                        <input id="contato_telefone" name="contato_telefone" type="text" class="form_contato1 validate[required] telefoneMask" />
+                    </div>
+					<div style="clear: both;"></div>
+                    <div class="espaco_form">
+                        <label for="atendimento" class="titulo_contato">Mensagem </label>
+                        <textarea id="contato_mensagem" name="contato_mensagem" cols="63" rows="7" style="float: none; margin-bottom: 15px;"  class="form_contato2 validate[required]"></textarea>     
+                        <div>
+                            <a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" onclick="$('#form_signup').submit();" id="submit_atendimento" style="color:<?php echo Zend_Registry::get('colorEnviarContato'); ?>; background:<?php echo Zend_Registry::get('backgroundEnviarContato'); ?>;" class="contatoEnvia"/> Enviar</a>
+                        </div>
+                    </div>
+					<input type="hidden" name="acao" id="acaoContatoFull" value="<?php echo $this->url(array('controller' => 'contato', 'action' => 'contato'),'default',true); ?>" />
+                </form>
+
+            </div>
+            <div class="box_end_atendimento">
+                <div class="titulo_localizao" style="color:<?php echo Zend_Registry::get('colorTxtTituloPadrao'); ?>;">
+                    Localiza&ccedil;&atilde;o
+                </div>
+                <div class="descricao_localizacao">
+                    <?php echo Zend_Registry::get('empresaEndereco');?><br />
+                    Setor: <?php echo Zend_Registry::get('empresaSetor');?><br />
+                    <?php echo Zend_Registry::get('empresaCidade');?> - <?php echo Zend_Registry::get('empresaUf');?><br />
+                    Telefone: <?php echo mascara('(##) ####-####',Zend_Registry::get('empresaTelefone'));?> <br />
+                    E-mail: <?php echo Zend_Registry::get('empresaEmail');?>
+                </div>
+                <div>
+	                <div class="mostraMapa" style="width: 460px; margin-top:180px; height: 250px;">
+	                	
+	                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+<input type="hidden" id="latitudeEmpresa" name="latitudeEmpresa" value="<?php echo Zend_Registry::get('empresaLatitude');?>"/>          	
+<input type="hidden" id="longitudeEmpresa" name="longitudeEmpresa" value="<?php echo Zend_Registry::get('empresaLongitude');?>"/>          	
+<input type="hidden" id="enderecoCompletoEmpresa" name="enderecoCompletoEmpresa" value="<?php echo Zend_Registry::get('empresaEndereco');?>, <?php echo Zend_Registry::get('empresaSetor');?>, <?php echo Zend_Registry::get('empresaCidade');?> - <?php echo Zend_Registry::get('empresaUf');?> "/>          	

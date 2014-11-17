@@ -1,0 +1,37 @@
+<h2><?php echo $this->headerText?>
+	<input type="button" onclick="location.href='<?php echo $this->url($this->linkRef,'default',true);?>'" class="button" id="voltar" value="Voltar" ></input>
+</h2>
+<?php
+if ($this->sucessMessage) :
+	?><div class="message success closeable">
+<p><?php
+	echo $this->sucessMessage;
+	?></p>
+</div>
+<?php endif;
+?>
+<?php
+if ($this->warningMessage) :
+	?><div class="message error closeable">
+<p><?php
+	echo $this->warningMessage;
+	?></p>
+</div>
+<?php endif;
+?>
+<div align="right">
+<input type="button"
+	onclick="location.href='<?php
+	echo $this->url ( array ('controller' => 'foto', 'action' => 'cadastrar', 'module'=>'admin' ), 'default', true )?>'"
+	class="button" value="Nova imagem"></input></div>
+<?php foreach ($this->imagens as $img): ?>
+	<div style="border:1px #666 solid; width: 180px; height: 100px; margin: 5px 5px 5px 5px; float:left">
+		<div style="border-bottom:1px #666 solid; float: left; width: 180px; height: 100px; text-align: center; margin-top: 2px">
+			<img align="middle" src="<?php echo $this->baseUrl();?>/media/imagens/fotos/<?=$img->getNome_imagem() ?>_thumb.<?=$img->getExtensaoArquivo()?>?<?=rand(100,999)?>"/>
+		</div>
+		<div style="width: 180px; float: left; height: 28px; text-align: center;">
+			<a href="<?php echo $this->url(array('controller' => 'foto', 'action'=>'alterar', 'module'=>'admin', 'id'=>$img->getIdFoto()),'default', true)?>">Editar</a>|
+			<a href="<?php echo $this->url(array('controller' => 'foto', 'action'=>'excluir', 'module'=>'admin', 'id'=>$img->getIdFoto()),'default', true)?>">Excluir</a>
+		</div>
+	</div>
+<?php endforeach; ?>

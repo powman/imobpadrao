@@ -1,0 +1,10 @@
+<?php
+if ($this->warningMessage) {
+	echo '<div class="message error closeable"><p>';
+	echo $this->warningMessage;
+	echo '</p></div>';
+} else {
+	echo '<b>Modulo: ' . utf8_encode($this->modulo->getNmmodulo()) . '</b>' . PHP_EOL;
+	echo $this->form;
+}
+?>

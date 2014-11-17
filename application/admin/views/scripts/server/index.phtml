@@ -1,0 +1,66 @@
+<h2>Listagem de servidores</h2>
+<div align="right">
+	<?php
+	echo $this->ActionButton('server', 'incluir', 'admin', 'Cadastrar');	
+	?>
+</div>
+<br />
+<table width="100%" cellpadding="0" cellspacing="0" border="0" id="table_liquid">
+<form name="form" id="form" method="post" action="<?php echo $this->url(array('controller' => 'server', 'module' => 'admin', 'action'=>'selecionados'), 'default', true);?>">
+	<caption>Listagem de servidores cadastrados com autorização no sistema.</caption>
+	
+	<tr>	
+		<th width="250px">Site</th>
+		<th>Dom�nio</th>
+		<th>Ultimo Backup</th>
+		<th>Ações</th>
+	</tr>
+<?php
+$class = 'alt';
+if ($this->entries) :
+	foreach ($this->entries->getCurrentItems() as $entry) :
+		if ($class == 'alt')
+			$class = '';
+		else
+			$class = 'alt';
+		?>
+  <tr>
+  		
+		
+		<th class="spec<?php
+		echo $class;
+		?>"><?php
+		echo $entry['nome'];
+		?></th>
+		<th class="spec<?php
+		echo $class;
+		?>"><?php
+		echo $entry['host'];
+		?></th>
+		<th class="spec<?php
+		echo $class;
+		?>"><?php
+		echo date('d/m/Y', $entry['dhbackup']);
+		?></th>		
+		<td class="<?php
+		echo $class;
+		?>">
+		<?php
+		echo $this->ActionButton('server', 'alterar', 'admin', 'Alterar', array('id' => $entry['idServer'])) . ' ';
+		echo $this->ActionButton('server', 'excluir', 'admin', 'Excluir', array('id' => $entry['idServer'])) . ' ';
+		echo $this->ActionButton('server', 'backup', 'admin', 'Fazer backup', array('id' => $entry['idServer']));
+		?> 
+		</td>
+	</tr>	
+<?php
+	endforeach;	 
+	endif;
+?>
+</form>
+</table>
+<?php
+
+echo $this->paginationControl($this->entries, 'Sliding', 'pagination.phtml');
+
+echo $this->ActionButton('server', 'backup', 'admin', 'Backup todos') . ' ';
+?>

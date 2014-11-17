@@ -1,0 +1,14 @@
+<h1><?php echo $this->headerText; echo $this->ActionButton('mensagem');?></h1>
+<?php if($this->warningMessage):?><div class="message error closeable"><p><?php echo $this->warningMessage;?></p></div><?php endif;?>
+<div align="right"></div>
+	<div style="float:left; width: 700px;">
+	<div class="content-box box-grey" style="width: 700px">
+		<h2>Assunto : <?php echo $this->aMensagem->getAssunto(); ?></h2><br />
+		<p>
+		<b>Nome : </b><?php echo $this->aMensagem->getNome(); ?><br />
+		<b>Email : </b> <?php echo $this->aMensagem->getEmail(); ?>	<br />
+		<b>Telefone : </b> <?php echo $this->aMensagem->getTelefone(); ?></p><br />
+		<p><b>Mensagem: </b></p>
+		<p>&nbsp;&nbsp;&nbsp;<?php echo $this->aMensagem->getMensagem(); ?></p>
+	</div>		
+	</div>

@@ -1,0 +1,64 @@
+<h2>Listagem de Mensagens	</h2>
+<br />
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+	id="table_liquid">
+	<caption>Mensagens enviadas através do site.</caption>
+	<tr>
+		<th width="35px"></th>
+		<th width="220px">Assunto</th>
+		<th width="220px">Nome</th>
+		<th width="160px">Email</th>		
+		<th width="160px">Ações</th>
+	</tr>
+<?php
+$class = 'alt';	
+if ($this->entries) :
+	foreach ($this->entries as $entry) :
+		if ($class == 'alt')
+			$class = '';
+		else
+			$class = 'alt';
+		?>
+  <tr>
+		<td class="<?php
+		echo $class;
+		?>"><?php
+		echo ($entry->getStatus()) ? 
+			'<img src="' . $this->baseUrl() .  '/media/admin/icons/MailOpen.png" border="0"/>' 
+		  : '<img src="' . $this->baseUrl() . '/media/admin/icons/Mail.png" border="0"/>';
+		?>
+		</td>
+		<th class="spec<?php
+		echo $class;
+		?>"><?php
+		echo $entry->getAssunto();
+		?></th>
+		<th class="spec<?php
+		echo $class;
+		?>"><?php
+		echo $entry->getNome();
+		?></th>
+		<th class="spec<?php
+		echo $class;
+		?>"><?php
+		echo $entry->getEmail();
+		?></th>		
+		<td class="<?php
+		echo $class;
+		?>">
+		<?php
+			
+			echo $this->ActionButton('mensagem', 'cadastrar', 'admin', 'Visualizar', array('id' => $entry->getIdMensagem()) ) . ' ';
+			echo $this->ActionButton('mensagem', 'excluir', 'admin', 'Excluir', array('id' => $entry->getIdMensagem()));
+		?> 
+		</td>
+	</tr>
+<?php
+	endforeach;
+
+	endif;
+?>
+</table>
+<?php
+	echo $this->paginationControl($this->entries, 'Sliding', 'pagination.phtml');
+?>

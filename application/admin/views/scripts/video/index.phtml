@@ -1,0 +1,50 @@
+<h2>Código do imóvel: <?=$this->aImovel->getIdimovel()?><br /></h2>
+<div align="right">
+<?php echo $this->ActionButton('video','cadastrar','admin','Novo v�deo', array('id' => $this->aImovel->getIdimovel()));?>
+</div>
+<div id="permissao-dialog" title="Permissões do modulo"><!-- Janela de controle de permiss�es --></div>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" id="table_liquid">
+<caption>Vídeos cadastrados no imóvel.</caption>
+	<tr>
+		<th width="400px">Título</th>
+		<th width="100px">Código</th>
+		<th width="70px">Ativo</th>
+		<th>A��es</th>
+	</tr>
+<?php 
+$class ='alt';
+if($this->aVideos):
+foreach ( $this->aVideos as $video ) :
+	if($class=='alt')
+				$class='';
+			else
+				$class='alt';
+	?>
+  <tr>
+		<th class="spec<?php echo $class;?>"><?php
+		
+	echo $video->getTitulo();
+	?></th>
+		<th class="spec<?php echo $class;?>"><?php
+		
+	echo $video->getIdimovel();
+	?></th>
+		<td class="<?php echo $class;?>"><?php
+	echo $video->getAtivo()?'Ativo':'Inativo';
+	?></td>
+	
+		<td align="center" class="<?php echo $class;?>">
+		
+		<?php 
+			echo $this->ActionButton('video','alterar','admin','Alterar',array('id'=> $video->getIdVideo())).' '; 
+			 
+			echo $this->ActionButton('video','excluir','admin','Excluir',array('id'=> $video->getIdVideo())).' ';
+		?>
+		</td>
+	</tr>
+<?php
+endforeach;
+endif;
+?>
+</table>
+<?php echo $this->paginationControl($this->aVideos, 'Sliding', 'pagination.phtml'); ?>

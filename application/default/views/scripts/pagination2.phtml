@@ -1,0 +1,58 @@
+<style>
+div.pagination{
+font-family: Arial,Helvetica,sans-serif;
+font-size: 16px;
+padding:-2px 0 0 0;
+text-align: center;
+}
+
+div.pagination .currentPage {
+padding: 5px;
+background-color: #069;
+color: white;
+font-weight: bold;
+	
+}
+
+div.pagination .numberPage {
+padding: 8px;
+border: 1px solid #069;
+color: #069;
+font-weight: bold;
+	
+}
+
+div.pagination .numberPage:hover {
+background-color: yellow;
+	
+}
+</style>
+
+<div class="pagination">
+    <!-- Link para a primeira p�gina -->
+    <?php if (isset($this->previous)): ?>
+        <a class="paginationPadrao pagNumerico" title="Primeira P&aacute;gina" href="<?php echo $this->url(array('pagina' => $this->first,'tipo'=>'aluguel')); ?>"><<</a>
+    <?php else: ?>
+        <a class="paginationPadrao pagNumerico" title="Primeira P&aacute;gina" href="<?php echo $this->url(array('pagina' => $this->first,'tipo'=>'aluguel')); ?>"><<</a>
+    <?php endif; ?>
+
+
+
+    <!-- Links numerados -->
+    <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+            <a class="paginationPadrao pagNumerico" title="<?php echo $page; ?>" href="<?php echo $this->url(array('pagina' => $page,'tipo'=>'aluguel')); ?>"><?php echo $page; ?></a>
+        <?php else: ?>
+            <a class="paginationPadrao pagNumerico" title="<?php echo $page; ?>" href="<?php echo $this->url(array('pagina' => $page,'tipo'=>'aluguel')); ?>"><?php echo $page; ?></a>
+        <?php endif; ?>
+    <?php endforeach; ?>
+
+
+
+    <!-- �ltima p�gina -->
+    <?php if (isset($this->next)): ?>
+        <a class="paginationPadrao pagNumerico" title="&Uacute;ltima P&aacute;gina" href="<?php echo $this->url(array('pagina' => $this->last,'tipo'=>'aluguel')); ?>">>></a>
+    <?php else: ?>
+        <a class="paginationPadrao pagNumerico" title="&Uacute;ltima P&aacute;gina" href="<?php echo $this->url(array('pagina' => $this->last,'tipo'=>'aluguel')); ?>">>></a>
+    <?php endif; ?>
+</div>

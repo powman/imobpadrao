@@ -196,7 +196,7 @@ class ImovelController extends Zend_Controller_Action {
 		/**
 		 * Buscar todas as imagens do im�vel
 		 */
-		$aTodasImagens = Application_Model_ImovelMapper::findImage($request->getParam('id'), false, 12);
+		$aTodasImagens = Application_Model_ImovelMapper::findImage($request->getParam('id'), false,100);
 		$this->view->aTodasImagens = $aTodasImagens;
 		
 		$this->view->metadescricao = $imovel->getDescricao();

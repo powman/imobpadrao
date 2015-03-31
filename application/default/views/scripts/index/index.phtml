@@ -1,25 +1,4 @@
-<script type="text/javascript">  
-        	<?php
-        	$sessao = new Zend_Session_Namespace();
-			if(!$sessao->acesso){
-        	$sessao->acesso = true;
-        					
-        	?>	     
-	        $(function() {
-		            function launch() {
-		                 $('#sign_up').lightbox_me({centered: true, onLoad: function() { $('#sign_up').find('input:first').focus()}});					 
-		            }
-		            $("#sign_up").lightbox_me({centered: true, onLoad: function() {
-						$("#sign_up").find("input:first").focus();
-					}});
-						
-		            
-		            $('table tr:nth-child(even)').addClass('stripe');
-	        });
-	        <?php	 
-        	}
-        	?>            
-    </script>
+
 <!-- Banner -->
 <div id="tamanhoBanner" style="background:<?php echo Zend_Registry::get('backgroudBanner'); ?>;">
 	<div class="margin_auto">
@@ -64,7 +43,7 @@
             </style>
             <?php 
             $i = 0;
-            foreach($this->aCategorias as $categorias):
+            foreach ($this->aCategoria as $key => $categoriaImovel):
             	if(!$this->tipo){
 	            	$bg = $i >= 1 ? "background:".Zend_Registry::get('backgroudAbaImobAHover').";" : "background:".Zend_Registry::get('backgroudAbaImobA').";";
 	            	$color = $i >= 1 ? "color:".Zend_Registry::get('colorAbaAHover').";" : "color:".Zend_Registry::get('colorAbaA').";";
@@ -73,7 +52,7 @@
 					$color = $this->tipo != ($i+1) ? "color:".Zend_Registry::get('colorAbaAHover').";" : "color:".Zend_Registry::get('colorAbaA').";";
 				}
             ?>
-				<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" rel="<?php echo ($i+1);?>" class="menu_abas btMudarAbas" style="<?php echo $bg; ?> <?php echo $color;?>"><?php echo $categorias->getNome();?></a>  
+				<a title="<?php echo Zend_Registry::get('nomeEmpresa');?> - im&oacute;veis em <?php echo Zend_Registry::get('empresaCidade');?>" href="javascript:;" rel="<?php echo ($i+1);?>" class="menu_abas btMudarAbas" style="<?php echo $bg; ?> <?php echo $color;?>"><?php echo $categoriaImovel;?></a>  
 			<?php 
 			$i++;
 			endforeach;
@@ -86,7 +65,7 @@
   		<div class="shadow" style="background: #fff; padding-bottom: 20px;">
   		<?php 
   		$i = 0;
-  		foreach($this->aCategorias as $categorias):
+  		foreach ($this->aCategoria as $key => $categoriaImovel):
   		if(!$this->tipo){
 			$displayCss = $i == 0 ? "" : "display:none;";
 		}else{
@@ -100,25 +79,25 @@
 		    		$select2 = "";
 		    		$select = "";
 		    		$condicao = false;
-					if($categorias->getCategoria()){
-						/* select para os tipos */
-			    		$aTipos = array();
-			    		$select2 = "";
-			    		$condicao2 = "";
-			    		$aTipos = explode(",",$categorias->getCategoria());
-			    		$aux2 = count($aTipos);
-			    		for($k=0;$k<$aux2;$k++){
-							$select2 .= ($k <= 0 ? "" : " OR ")." categoria = '".$aTipos[$k]."'";
+// 					if($categoriaImovel){
+// 						/* select para os tipos */
+// 			    		$aTipos = array();
+// 			    		$select2 = "";
+// 			    		$condicao2 = "";
+// 			    		$aTipos = explode(",",$categoriaImovel);
+// 			    		$aux2 = count($aTipos);
+// 			    		for($k=0;$k<$aux2;$k++){
+// 							$select2 .= ($k <= 0 ? "" : " OR ")." categoria = '".$aTipos[$k]."'";
 	
-						}
-						$select2 = "(".$select2.")";
-						$condicao = " AND ";
-					}
+// 						}
+// 						$select2 = "(".$select2.")";
+// 						$condicao = " AND ";
+// 					}
 					
-					if($categorias->getIdTipoImovel()){
-						$select = ' venda_aluguel = '.$categorias->getIdTipoImovel()." ".$condicao;
-						$condicao = " AND ";
-					}
+// 					if($categorias->getIdTipoImovel()){
+// 						$select = ' venda_aluguel = '.$categorias->getIdTipoImovel()." ".$condicao;
+// 						$condicao = " AND ";
+// 					}
 
 		    		$aItens[$i] = $this->imovel_venda->fetchAll($select.$select2.$condicao.' destaque = 1');
 		    		

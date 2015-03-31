@@ -53,18 +53,21 @@
 	        		
 					<div style="float: left; margin-right: 15px;">
 		        		<select name="hidden_venda[]" id="categoriaHome" style="width:125px;" multiple class="multselectCategoria txtCampoFormBusca">
-							<option value="LANÇAMENTO">Lançamento</option>
-							<option value="RURAL">Rural</option>
-							<option value="TERCEIROS">Terceiros / Revenda</option>
+							<?php
+							foreach ($this->aCategoria as $key => $categoriaImovel):
+							?>
+							<option value="<?php echo $key;?>"><?php echo $categoriaImovel;?></option>
+							<?php
+							endforeach;
+							?>
 						</select>
 					</div>
 	        		<div style="float: left; margin-right: 15px;">
 		        		<select name="hidden_tipo[]" style="width:125px;" multiple class="multselectTipo txtCampoFormBusca">
 							<?php
 							foreach ($this->aTipoImovel as $tipoImovel):
-							    $idtipo_imovel = $tipoImovel->getIdtipo_imovel();
 							    ?>
-							    <option value='<?= $idtipo_imovel ?>'><?= $tipoImovel->getNmtipo_imovel() ?></option>	
+							    <option value='<?= $tipoImovel->IDTIPO_IMOVEL ?>'><?= $tipoImovel->NMTIPO_IMOVEL ?></option>	
 							    <?php
 							endforeach;
 							?>
@@ -93,10 +96,9 @@
 					<div style="float: left; margin-right: 15px;">
 		        		<select name="hidden_cidade[]" style="width:125px;" multiple class="multselectCidade txtCampoFormBusca">
 							<?php
-							foreach ($this->aCidade as $oCidade):
-							    $idCidade = $oCidade->getIdcidade();
+							foreach ($this->aCidades as $oCidade):
 							    ?>
-							    <option value='<?= $idCidade ?>'><?= $oCidade->getNmcidade() ?></option>	
+							    <option value='<?= $oCidade->IDCIDADE; ?>'><?= $oCidade->NMCIDADE; ?></option>	
 							    <?php
 							endforeach;
 							?>

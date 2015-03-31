@@ -324,7 +324,7 @@ $(document).ready(function() {
         		                       var i = 0;
         		                       var option = "";
         		                       for(i=0;i<obj.num;i++){
-        		                    	   option += "<option value='"+obj.bairros[i].idSetor+"'>"+obj.bairros[i].nmSetor+"</option>"; 
+        		                    	   option += "<option value='"+obj.bairros[i].idSetor+"'> "+obj.bairros[i].nmCidade+" - "+obj.bairros[i].nmSetor+"</option>"; 
         		                       }
         		                       $(".multselectBairro").html('');
         		                       $(".multselectBairro").append(option);
